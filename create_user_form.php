@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 <body>  
   <div class="container"> 
     <h1>Create Account</h1>
-    <form name="mainForm" action="simpleform.php" method="post">
+    <form name="mainForm" action="create_user_form.php" method="post">
       <div class="row mb-3 mx-3"> Username:
         <input type="text" class="form-control" name="username" required />     
       </div>  
