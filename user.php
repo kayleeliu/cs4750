@@ -16,8 +16,8 @@ function updateUser($username, $daily_calorie_count=NULL, $meals_per_day=NULL) {
     global $db;
     $query = "UPDATE User SET daily_calorie_count=:daily_calorie_count, meals_per_day=:meals_per_day WHERE username=:username";
     $statement = $db->prepare($query);
-    $statement->bindValue(':daily_calorie_count', $name);
-    $statement->bindValue(':meals_per_day', $major);
+    $statement->bindValue(':daily_calorie_count', $daily_calorie_count);
+    $statement->bindValue(':meals_per_day', $meals_per_day);
     $statement->bindValue(':username', $username);
     $statement->execute();
     $statement->closeCursor();
