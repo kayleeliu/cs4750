@@ -3,7 +3,7 @@ require("connect-db.php");
 // include("connect-db.php) 
 // use require if it matters if the db exists or not
 
-require("friend-db.php");
+require("user.php");
 
 // $_SERVER is a standard PHP object
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
