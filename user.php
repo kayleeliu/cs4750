@@ -1,11 +1,11 @@
 <?php
 function addUser($username, $password, $daily_calorie_count=NULL, $meals_per_day=NULL) {
     global $db;
-    // $hash = password_hash($password, PASSWORD_DEFAULT);
+    $hash = crypt($password, '$5$databaseencryption');
     $query = "insert into User (username, password, daily_calorie_count, meals_per_day) values (:username, :password, :daily_calorie_count, :meals_per_day)";
     $statement = $db->prepare($query);
     $statement->bindValue(':username', $username);
-    $statement->bindValue(':password', $password);
+    $statement->bindValue(':password', $hash);
     $statement->bindValue(':daily_calorie_count', $daily_calorie_count);
     $statement->bindValue(':meals_per_day', $meals_per_day);
     $statement->execute();
