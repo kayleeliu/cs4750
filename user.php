@@ -46,4 +46,16 @@ function login($username, $password){
     $statement->closeCursor();
     return $results;
 }
+
+function getUserID($username){
+    global $db;
+    $query = "select * from User where username=:username";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':username', $username);
+    $statement->execute();
+    $results = $statement->fetch();
+    $statement->closeCursor();
+    return $results;
+}
+
 ?>

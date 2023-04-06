@@ -8,8 +8,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
   if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Login")){
     $results = login($_POST['username'], $_POST['password']);
     if($results[0] != 0){
-      $_SESSION["username"] = $_POST['username'];
-      header("Location: foods.php");
+      $userID = getUserID($_POST['username']);
+      # save userID in session
+      $_SESSION["userID"] = $userID[0]['id'];
+      header("Location: foods_page.php");
     }
     else {
       echo '<script>alert("Invalid login. Please try again.")</script>';
@@ -27,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 <body>  
 <nav class="navbar navbar-expand-lg navbar-light bg-light ps-3 pe-3">
   <a class="navbar-brand" href="index.html">Food Tracker</a>
-  <a class="nav-item nav-link" href="foods.php">Foods</a>
+  <a class="nav-item nav-link" href="foods_page.php">Foods</a>
   <div class="collapse navbar-collapse flex-row-reverse">
     <div class="flex-row-reverse justify-content-between">
       <button class="btn btn-outline-primary" onclick="window.location.href='create_user_form.php'">Create Account</a> 
