@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     if($results[0] != 0){
       $userID = getUserID($_POST['username']);
       # save userID in session
-      $_SESSION["userID"] = $userID[0]['id'];
+      $_SESSION["userID"] = $userID[0];
       header("Location: foods_page.php");
     }
     else {

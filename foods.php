@@ -12,11 +12,11 @@ function getUserFood($userID){
 
 function getFoodName($foodID){
     global $db;
-    $query = "select * from Food where id=:foodID";
+    $query = "select name from Food where id=:foodID";
     $statement = $db->prepare($query);
     $statement->bindValue(':foodID', $foodID);
     $statement->execute();
-    $results = $statement->fetchAll();
+    $results = $statement->fetch();
     $statement->closeCursor();
     return $results;
 }

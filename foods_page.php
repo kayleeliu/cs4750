@@ -40,7 +40,7 @@ $foods = getUserFood($_SESSION["userID"]);
       </thead>
     <?php foreach ($foods as $item): ?>
     <?php 
-      $foodName = getFoodName($item['foodID'])[0]['name'];
+      $foodName = getFoodName($item['foodID'])[0];
      ?>
       <tr>
         <td><?php echo $foodName; ?></td>

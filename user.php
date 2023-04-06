@@ -13,11 +13,11 @@ function checkUsernameExists($username){
 
 function addUser($username, $password, $daily_calorie_count=NULL, $meals_per_day=NULL) {
     global $db;
-    // $hash = crypt($password, '$5$databaseencryption$');
+    $hash = crypt($password, '$5$databaseencryption$');
     $query = "insert into User (username, password, daily_calorie_count, meals_per_day) values (:username, :password, :daily_calorie_count, :meals_per_day)";
     $statement = $db->prepare($query);
     $statement->bindValue(':username', $username);
-    $statement->bindValue(':password', $password);
+    $statement->bindValue(':password', $hash);
     $statement->bindValue(':daily_calorie_count', $daily_calorie_count);
     $statement->bindValue(':meals_per_day', $meals_per_day);
     $statement->execute();
@@ -38,9 +38,10 @@ function updateUser($username, $daily_calorie_count=NULL, $meals_per_day=NULL) {
 function login($username, $password){
     global $db;
     $query = "select count(*) from User where username=:username and password=:password";
+    $hash = crypt($password, '$5$databaseencryption$');
     $statement = $db->prepare($query);
     $statement->bindValue(':username', $username);
-    $statement->bindValue(':password', $password);
+    $statement->bindValue(':password', $hash);
     $statement->execute();
     $results = $statement->fetch();
     $statement->closeCursor();
@@ -49,7 +50,7 @@ function login($username, $password){
 
 function getUserID($username){
     global $db;
-    $query = "select * from User where username=:username";
+    $query = "select id from User where username=:username";
     $statement = $db->prepare($query);
     $statement->bindValue(':username', $username);
     $statement->execute();
