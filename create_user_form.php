@@ -8,7 +8,14 @@ require("user.php");
 // $_SERVER is a standard PHP object
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
   if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Create Account")){
-    addUser($_POST['username'], $_POST['password'], $_POST['daily_calorie_count'], $_POST['meals_per_day']);
+    $exists = checkUsernameExists($_POST['username']);
+    if ($exists[0] == 0){
+      addUser($_POST['username'], $_POST['password'], $_POST['daily_calorie_count'], $_POST['meals_per_day']);
+      header("Location: login_form.php");
+    }
+    else{
+      echo '<script>alert("Username already being used. Please use another one.")</script>';
+    }
   }
 }
 ?>
@@ -20,6 +27,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>  
+<nav class="navbar navbar-expand-lg navbar-light bg-light ps-3 pe-3">
+  <a class="navbar-brand" href="index.html">Food Tracker</a>
+  <a class="nav-item nav-link" href="foods.php">Foods</a>
+  <div class="collapse navbar-collapse flex-row-reverse">
+    <div class="flex-row-reverse justify-content-between">
+      <button class="btn btn-outline-primary" onclick="window.location.href='create_user_form.php'">Create Account</a> 
+      <button class="btn btn-outline-primary" onclick="window.location.href='login_form.php'">Login</a> 
+    </div>
+  </div>
+</nav>  
   <div class="container"> 
     <h1>Create Account</h1>
     <form name="mainForm" action="create_user_form.php" method="post">
