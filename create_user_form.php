@@ -2,8 +2,8 @@
 require("connect-db.php");
 // include("connect-db.php) 
 // use require if it matters if the db exists or not
-
 require("user.php");
+
 
 // $_SERVER is a standard PHP object
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $exists = checkUsernameExists($_POST['username']);
     if($exists[0] == 0){
       addUser($_POST['username'], $_POST['password'], $_POST['daily_calorie_count'], $_POST['meals_per_day']);
-      header("Location: login_form.php");-
+      header("Location: login_form.php");
     }
     else{
       echo '<script>alert("Username already being used. Please use another one.")</script>';
