@@ -1,7 +1,19 @@
 <?php
+
+function checkUsernameExists($username){
+    global $db;
+    $query = "select count(*) from User where username=:username";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':username', $username);
+    $statement->execute();
+    $results = $statement->fetch();
+    $statement->closeCursor();
+    return $results;
+}
+
 function addUser($username, $password, $daily_calorie_count=NULL, $meals_per_day=NULL) {
     global $db;
-    $hash = crypt($password, '$5$databaseencryption');
+    $hash = crypt($password, '$5$databaseencryption$');
     $query = "insert into User (username, password, daily_calorie_count, meals_per_day) values (:username, :password, :daily_calorie_count, :meals_per_day)";
     $statement = $db->prepare($query);
     $statement->bindValue(':username', $username);
@@ -22,4 +34,29 @@ function updateUser($username, $daily_calorie_count=NULL, $meals_per_day=NULL) {
     $statement->execute();
     $statement->closeCursor();
 }
+
+function login($username, $password){
+    global $db;
+    $query = "select count(*) from User where username=:username and password=:password";
+    $hash = crypt($password, '$5$databaseencryption$');
+    $statement = $db->prepare($query);
+    $statement->bindValue(':username', $username);
+    $statement->bindValue(':password', $hash);
+    $statement->execute();
+    $results = $statement->fetch();
+    $statement->closeCursor();
+    return $results;
+}
+
+function getUserID($username){
+    global $db;
+    $query = "select id from User where username=:username";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':username', $username);
+    $statement->execute();
+    $results = $statement->fetch();
+    $statement->closeCursor();
+    return $results;
+}
+
 ?>
