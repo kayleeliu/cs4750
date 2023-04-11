@@ -2,11 +2,16 @@
 
 require("connect-db.php");
 require('foods.php');
+require('user.php');
 
 session_start();
 
-$foods = getUserFood($_SESSION["userID"]);
+# redirect to login form if not logged in yet
+if ($_SESSION["userID"] == 0){
+  header("Location: login_form.php");
+}
 
+$foods = getUserFood($_SESSION["userID"]);
 
 ?>
 
@@ -15,6 +20,7 @@ $foods = getUserFood($_SESSION["userID"]);
 <head>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 </head>
 <body>  
 <nav class="navbar navbar-expand-lg navbar-light bg-light ps-3 pe-3">
@@ -22,8 +28,8 @@ $foods = getUserFood($_SESSION["userID"]);
   <a class="nav-item nav-link" href="foods_page.php">Foods</a>
   <div class="collapse navbar-collapse flex-row-reverse">
     <div class="flex-row-reverse justify-content-between">
-      <button class="btn btn-outline-primary" onclick="window.location.href='create_user_form.php'">Create Account</a> 
-      <button class="btn btn-outline-primary" onclick="window.location.href='login_form.php'">Login</a> 
+      <button class="btn btn-outline-primary" onclick="window.location.href='create_user_form.php'">Create Account</button> 
+      <button id="logout_btn" class = "btn btn-outline-secondary" onclick="window.location.href='login_form.php'">Logout</button>
     </div>
   </div>
 </nav>  
