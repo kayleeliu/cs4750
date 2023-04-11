@@ -12,6 +12,8 @@ function checkUsernameExists($username){
 }
 
 function addUser($username, $password, $daily_calorie_count=NULL, $meals_per_day=NULL) {
+    if($daily_calorie_count == "") $daily_calorie_count = NULL;
+    if($meals_per_day == "") $meals_per_day = NULL;
     global $db;
     $hash = crypt($password, '$5$databaseencryption$');
     $query = "insert into User (username, password, daily_calorie_count, meals_per_day) values (:username, :password, :daily_calorie_count, :meals_per_day)";
