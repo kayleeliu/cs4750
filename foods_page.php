@@ -45,72 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>  
-<nav class="navbar navbar-expand-lg navbar-light bg-light ps-3 pe-3">
-  <a class="navbar-brand" href="index.html">Food Tracker</a>  
-  <a class="nav-item nav-link" href="foods_page.php">Foods</a>
-  <div class="collapse navbar-collapse flex-row-reverse">
-    <div class="flex-row-reverse justify-content-between">
-      <button class="btn btn-outline-primary" onclick="window.location.href='create_user_form.php'">Create Account</button> 
-      <button id="logout_btn" class = "btn btn-outline-secondary" onclick="window.location.href='login_form.php'">Logout</button>
-    </div>
-  </div>
-</nav>  
-<div class="container">
-  <button class="btn" onclick="toggle_filter_menu()" style="position:absolute; right: 1vw;">
-    <img id=filter_icon src="filter_icon.png"/>
-  </button>
-</div>
-<div id="filter_menu" style="display: none;">
-  <div class="d-flex flex-column justify-content-center">
-    <div class="container">
-      <a class="closebtn" onclick="toggle_filter_menu()">&times;</a>
-    </div>
-    <div class="container">
-      <h2 style="text-align: center;"><b>Sort By</b></h2>
-    </div>
-    <form name="filter_form" action="foods_page.php" method="post">  
-      <div class="container">
-        <ul id="filter_list" style="list-style-type: none"> 
-            <li>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="filter_item" value="alphabetical" id="alphabetical_btn">
-                <label class="form-check-label" for="alphabetical_btn">
-                  Alphabetical(A-Z)
-                </label>
-              </div>
-            </li>
-            <li>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="filter_item" value = "expiration" id="expiration">
-                <label class="form-check-label" for="expiration">
-                  Expiration: Closest to Farthest
-                </label>
-              </div>
-            </li>
-            <li>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="filter_item" value="buy_date_old_new" id="buy_date_old_new">
-                <label class="form-check-label" for="buy_date_old_new">
-                  Buy Date: Oldest to Newest
-                </label>
-              </div>
-            </li>
-            <li>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="filter_item" value="buy_date_new_old" id="buy_date_new_old">
-                <label class="form-check-label" for="buy_date_new_old">
-                  Buy Date: Newest to Oldest
-                </label>
-              </div>
-            </li>
-        </ul>
-      </div>
-      <div class="container text-center">
-        <input class="btn btn-primary" type="submit" name="actionBtn" value="Apply Filter" title="Apply Filter">
-      </div>
-    <form>
-  </div>
-</div> 
+<?php include("navbar.html"); ?>
 <div class="row justify-content-center">  
     <table class="w3-table w3-bordered w3-card-4 center" style="width:70%">
       <thead>
