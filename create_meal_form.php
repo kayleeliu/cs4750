@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     if(empty($_SESSION["userID"])) {
         echo '<script>alert("You need to be logged in!")</script>';
     } else {
-        createMeal($_SESSION["userID"], $_POST['name'], $_POST['num_of_servings'], $_POST['prep_time'], $_POST['calorie_count'], $_POST['time_of_day']);
+        createMeal($_POST['name'], $_POST['num_of_servings'], $_POST['prep_time'], $_POST['calorie_count'], $_POST['time_of_day']);
     }
   }
 }
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
   </div>
 </nav>  
   <div class="container"> 
-    <h1>Create Account</h1>
+    <h1>Create Meal</h1>
     <form name="mainForm" action="create_meal_form.php" method="post">
       <div class="row mb-3 mx-3"> Name of meal:
         <input type="text" class="form-control" name="name" required />     
