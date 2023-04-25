@@ -34,25 +34,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 }
 
   if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Search")){
-    // if ($_POST['searchTerm'] == NULL || $_POST['searchTerm'] == ""){
-      
-    // }
     if ($_POST['searchTerm'] != NULL){
-      $foodID = getFoodID($_POST['searchTerm']);
-      echo $foodID[0];
-      echo 'x';
-      $foods = searchUserFood($_SESSION["userID"], $foodID[0]);
-
-      // echo getFoodName($foodID[0])[0];
-      echo count($foods);
-      // $foods = getFoodName($foodID[0])[0];
-      foreach ($foods as $item){
-        
-        echo $item;
-      }
+      $foods = searchUserFood($_SESSION["userID"], $_POST['searchTerm']);
     }
   }
-}
 
 ?>
 
@@ -121,10 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
       </div>
     <form>
   </div>
-<<<<<<< Updated upstream
 </div> 
-=======
-</nav>  
 <form name="mainForm" action="foods_page.php" method="post">
   <div class="row justify-content-center" style="padding:20px;">
     <div class="search">
@@ -133,7 +115,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     </div>
   </div>
 </form>
->>>>>>> Stashed changes
 <div class="row justify-content-center">  
     <table class="w3-table w3-bordered w3-card-4 center" style="width:70%">
       <thead>
@@ -157,11 +138,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
       </tr>
     <?php endforeach; ?>
     </table>
-<<<<<<< Updated upstream
   </div> 
-=======
 </div>
->>>>>>> Stashed changes
 </body>
 </html>
 <script>
