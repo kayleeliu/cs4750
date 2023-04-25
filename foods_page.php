@@ -31,28 +31,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
       break;
     }
   }
-}
-
-  if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Search")){
-    // if ($_POST['searchTerm'] == NULL || $_POST['searchTerm'] == ""){
-      
-    // }
-    if ($_POST['searchTerm'] != NULL){
-      $foodID = getFoodID($_POST['searchTerm']);
-      echo $foodID[0];
-      echo 'x';
-      $foods = searchUserFood($_SESSION["userID"], $foodID[0]);
-
-      // echo getFoodName($foodID[0])[0];
-      echo count($foods);
-      // $foods = getFoodName($foodID[0])[0];
-      foreach ($foods as $item){
-        
-        echo $item;
-      }
+  if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+    if (!empty($_POST['foodActionBtn']) && ($_POST['foodActionBtn'] == "Enter New Food")){
+      addFood($_POST['entered-food-name'], $_POST['cooked-status'], $_SESSION['userID'], $_POST['entered-food-location'], $_POST['entered-food-buy-date'], $_POST['entered-food-exp-date'], $_POST['entered-food-quantity']);
     }
   }
+  
 }
+
 
 ?>
 
@@ -121,19 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
       </div>
     <form>
   </div>
-<<<<<<< Updated upstream
 </div> 
-=======
-</nav>  
-<form name="mainForm" action="foods_page.php" method="post">
-  <div class="row justify-content-center" style="padding:20px;">
-    <div class="search">
-        <input type="text" class="searchTerm" name="searchTerm" placeholder="Search for a food...">
-        <input class="btn-sm btn-primary" type="submit" name="actionBtn" value="Search" title="Search" />
-    </div>
-  </div>
-</form>
->>>>>>> Stashed changes
 <div class="row justify-content-center">  
     <table class="w3-table w3-bordered w3-card-4 center" style="width:70%">
       <thead>
@@ -157,11 +131,51 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
       </tr>
     <?php endforeach; ?>
     </table>
-<<<<<<< Updated upstream
   </div> 
-=======
-</div>
->>>>>>> Stashed changes
+
+
+<br>
+  <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h1 class="text-center mb-4">Enter new food!</h1>
+                <form id="foodForm" action="foods_page.php" method="post" class="form-border">
+                    <div class="form-group">
+                        <label for="entered-food-name">Food Name:</label>
+                        <input type="text" id="entered-food-name" class="form-control" name="entered-food-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="entered-food-buy-date">Buy date:</label>
+                        <input type="date" id="entered-food-buy-date" class="form-control" name="entered-food-buy-date">
+                    </div>
+                    <div class="form-group">
+                        <label for="entered-food-exp-date">Expiration date:</label>
+                        <input type="date" id="entered-food-exp-date" class="form-control" name="entered-food-exp-date">
+                    </div>
+                    <div class="form-group">
+                        <label for="entered-food-quantity">Quantity:</label>
+                        <input type="number" id="entered-food-quantity" class="form-control" name="entered-food-quantity" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="entered-food-location">Where're you putting it:</label>
+                        <input type="text" id="entered-food-location" class="form-control" name="entered-food-location" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cooked">Is it cooked?</label>
+                        <select id="cooked-status" name="cooked-status" class="form-control cooked-status">
+                            <option value="cooked">Cooked</option>
+                            <option value="notCooked">Not Cooked</option>
+                            <option value="NULL">N/A</option>
+                        </select>
+                    </div>
+                    <div class="form-group text-center">
+                        <input class="btn btn-primary" type="submit" name="foodActionBtn" value="Enter New Food" title="Enter New Food" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
 <script>
