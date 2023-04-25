@@ -61,4 +61,36 @@ function searchUserFood($userID, $name){
     return $results;
 }
 
+function addFood($name, $cookedStatus, $userID, $foodLocation, $foodBuyDate, $foodExpDate, $foodQuantity){
+    global $db;
+    $query = "INSERT INTO Food (name, cooked) VALUES (:foodName, :cooked)";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':foodName', $name);
+    if($cookedStatus == "cooked"){
+        $cookedStatusBool = true;
+    }else if($cookedStatus == "notCooked"){
+        $cookedStatusBool = false;
+    }else{
+        $cookedStatusBool = NULL;
+    }
+    $statement->bindValue(':cooked', $cookedStatusBool, PDO::PARAM_BOOL);
+    $statement->execute();
+    $statement->closeCursor();
+    $lastFoodID = $db->lastInsertId();
+    $userHasFoodquery = "INSERT INTO user_has_food 
+                        (userID, foodID, location, buy_date, exp_date, quantity) 
+                        VALUES (:inputUserID, :inputFoodID, :inputLocation, :input_buy, :input_exp, :input_quant)";
+    $userHasFoodStatement = $db->prepare($userHasFoodquery);
+    
+    $userHasFoodStatement->bindValue(':inputUserID', $userID);
+    $userHasFoodStatement->bindValue(':inputFoodID', $lastFoodID);
+    $userHasFoodStatement->bindValue(':inputLocation', $foodLocation);
+    $userHasFoodStatement->bindValue(':input_buy', $foodBuyDate);
+    $userHasFoodStatement->bindValue(':input_exp', $foodExpDate);
+    $userHasFoodStatement->bindValue(':input_quant', $foodQuantity);
+
+    $userHasFoodStatement->execute();
+    $userHasFoodStatement->closeCursor();
+}
+
 ?>

@@ -38,6 +38,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
       $foods = searchUserFood($_SESSION["userID"], $_POST['searchTerm']);
     }
   }
+  if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+    if (!empty($_POST['foodActionBtn']) && ($_POST['foodActionBtn'] == "Enter New Food")){
+      addFood($_POST['entered-food-name'], $_POST['cooked-status'], $_SESSION['userID'], $_POST['entered-food-location'], $_POST['entered-food-buy-date'], $_POST['entered-food-exp-date'], $_POST['entered-food-quantity']);
+    }
+  }
+  
+
 
 ?>
 
@@ -140,6 +147,48 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     </table>
   </div> 
 </div>
+<br>
+  <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h1 class="text-center mb-4">Enter new food!</h1>
+                <form id="foodForm" action="foods_page.php" method="post" class="form-border">
+                    <div class="form-group">
+                        <label for="entered-food-name">Food Name:</label>
+                        <input type="text" id="entered-food-name" class="form-control" name="entered-food-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="entered-food-buy-date">Buy date:</label>
+                        <input type="date" id="entered-food-buy-date" class="form-control" name="entered-food-buy-date">
+                    </div>
+                    <div class="form-group">
+                        <label for="entered-food-exp-date">Expiration date:</label>
+                        <input type="date" id="entered-food-exp-date" class="form-control" name="entered-food-exp-date">
+                    </div>
+                    <div class="form-group">
+                        <label for="entered-food-quantity">Quantity:</label>
+                        <input type="number" id="entered-food-quantity" class="form-control" name="entered-food-quantity">
+                    </div>
+                    <div class="form-group">
+                        <label for="entered-food-location">Where're you putting it:</label>
+                        <input type="text" id="entered-food-location" class="form-control" name="entered-food-location">
+                    </div>
+                    <div class="form-group">
+                        <label for="cooked">Is it cooked?</label>
+                        <select id="cooked-status" name="cooked-status" class="form-control cooked-status">
+                            <option value="cooked">Cooked</option>
+                            <option value="notCooked">Not Cooked</option>
+                            <option value="NULL">N/A</option>
+                        </select>
+                    </div>
+                    <div class="form-group text-center">
+                        <input class="btn btn-primary" type="submit" name="foodActionBtn" value="Enter New Food" title="Enter New Food" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
 <script>
