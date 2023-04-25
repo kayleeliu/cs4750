@@ -1,7 +1,17 @@
 <?php
 require("connect-db.php");
 require("user.php");
+
+// get previous session
 session_start();
+// remove all session variables
+session_unset();
+// destroy the session
+session_destroy();
+
+// start new session
+session_start();
+
 
 // $_SERVER is a standard PHP object
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -45,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         <input type="text" class="form-control" name="username" required />     
       </div>  
       <div class="row mb-3 mx-3">Password: 
-        <input type="text" class="form-control" name="password" required />    
+        <input type="password" class="form-control" name="password" required />    
       </div>  
       <div class="row mb-3 mx-3">
         <input class="btn btn-primary" type="submit" name="actionBtn" value="Login" title="Login" />
