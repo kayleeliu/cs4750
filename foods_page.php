@@ -23,16 +23,7 @@ $foods = getUserFood($_SESSION["userID"]);
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 </head>
 <body>  
-<nav class="navbar navbar-expand-lg navbar-light bg-light ps-3 pe-3">
-  <a class="navbar-brand" href="index.html">Food Tracker</a>  
-  <a class="nav-item nav-link" href="foods_page.php">Foods</a>
-  <div class="collapse navbar-collapse flex-row-reverse">
-    <div class="flex-row-reverse justify-content-between">
-      <button class="btn btn-outline-primary" onclick="window.location.href='create_user_form.php'">Create Account</button> 
-      <button id="logout_btn" class = "btn btn-outline-secondary" onclick="window.location.href='login_form.php'">Logout</button>
-    </div>
-  </div>
-</nav>  
+<?php include("navbar.html"); ?>
 <div class="row justify-content-center">  
     <table class="w3-table w3-bordered w3-card-4 center" style="width:70%">
       <thead>
