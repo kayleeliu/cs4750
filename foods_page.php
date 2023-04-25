@@ -142,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 <form id="foodForm" action="foods_page.php" method="post" class="form-border">
                     <div class="form-group">
                         <label for="entered-food-name">Food Name:</label>
-                        <input type="text" id="entered-food-name" class="form-control" name="entered-food-name" required>
+                        <input type="text" id="entered-food-name" class="form-control" name="entered-food-name">
                     </div>
                     <div class="form-group">
                         <label for="entered-food-buy-date">Buy date:</label>
@@ -154,11 +154,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                     </div>
                     <div class="form-group">
                         <label for="entered-food-quantity">Quantity:</label>
-                        <input type="number" id="entered-food-quantity" class="form-control" name="entered-food-quantity" required>
+                        <input type="number" id="entered-food-quantity" class="form-control" name="entered-food-quantity">
                     </div>
                     <div class="form-group">
                         <label for="entered-food-location">Where're you putting it:</label>
-                        <input type="text" id="entered-food-location" class="form-control" name="entered-food-location" required>
+                        <input type="text" id="entered-food-location" class="form-control" name="entered-food-location">
                     </div>
                     <div class="form-group">
                         <label for="cooked">Is it cooked?</label>
