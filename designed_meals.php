@@ -41,13 +41,13 @@ $meals = getMealsUserDesigned($_SESSION["userID"]);
       <tr>
         <td><?php echo $meal['name']; ?></td>
         <td><?php echo $meal['time_of_day']; ?></td>        
-        <td><?php echo $meal['num_of_servings']; ?> servings</td>  
-        <td><?php echo $meal['calorie_count']; ?> calories</td>  
-        <td><?php echo $meal['prep_time']; ?> min.</td>  
+        <td><?php echo $meal['num_of_servings'] ? $meal['num_of_servings'] . " servings" : "" ?></td>  
+        <td><?php echo $meal['calorie_count'] ? $meal['calorie_count'] . " calories" : "" ?></td>  
+        <td><?php echo $meal['prep_time'] ? $meal['prep_time'] . " min." : "" ?></td>  
         <td>
             <form name="Edit meal" action="edit_meal.php">
                 <input type="hidden" name="mealID" value=<?php echo $meal['mealID'] ?>>
-            <input class="btn btn-primary" type="submit" value="Add food">
+            <input class="btn btn-primary" type="submit" value="Edit">
     </form>
         </td>           
       </tr>

@@ -15,7 +15,7 @@ session_start();
 
 // $_SERVER is a standard PHP object
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-  if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Login")){
+  if ($_POST['actionBtn']){
     $results = login($_POST['username'], $_POST['password']);
     if($results[0] != 0){
       $userID = getUserID($_POST['username']);
@@ -51,7 +51,7 @@ include("navbar.html")
         <input type="password" class="form-control" name="password" required />    
       </div>  
       <div class="row mb-3 mx-3">
-        <input class="btn btn-primary" type="submit" name="actionBtn" value="Login" title="Login" />
+        <input class="btn btn-primary" type="submit" name="actionBtn" title="Login" />
       </div>
     </form>  
   </div>  
