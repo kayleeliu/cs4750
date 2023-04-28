@@ -22,15 +22,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
   }
   else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Add Food")){
     $food_entered = getFoodId($_POST['entered-food-name']);
-    echo $food_entered[0];
-    $has_food = checkUserHasFood($_SESSION['userID'], $food_entered[0]);
+    $has_food = checkUserHasFood($_SESSION['userID'], $food_entered);
     if($has_food[0] == 0){
-      addFoodToInventory($_SESSION['userID'], $food_entered[0], $_POST['entered-food-location'], $_POST['entered-food-buy-date'], $_POST['entered-food-exp-date'], $_POST['entered-food-quantity']);
+      addFoodToInventory($_SESSION['userID'], $food_entered, $_POST['entered-food-location'], $_POST['entered-food-buy-date'], $_POST['entered-food-exp-date'], $_POST['entered-food-quantity']);
     }
     else{
-      updateUserFood($_SESSION["userID"], $food_entered[0], $_POST['entered-food-location'], $_POST['entered-food-buy-date'], $_POST['entered-food-exp-date'], $_POST['entered-food-quantity']);
+      updateUserFood($_SESSION["userID"], $food_entered, $_POST['entered-food-location'], $_POST['entered-food-buy-date'], $_POST['entered-food-exp-date'], $_POST['entered-food-quantity']);
     }
-    deleteFoodFromShoppingList($_SESSION["userID"], $food_entered[0]);
+    deleteFoodFromShoppingList($_SESSION["userID"], $food_entered);
   }
 }
 
