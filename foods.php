@@ -145,14 +145,14 @@ function checkUserHasFood($userID, $foodID){
 
 function updateUserFood($userID, $foodID, $location, $buy_date, $exp_date, $quantity){
     global $db;
-    $query = "update user_has_food set location=:location, buy_date=:buy_date, exp_date=:exp_date, quantity=quantity+:quantity where userID=:userID and foodID=:foodID";
+    $query = "update user_has_food set location=:location, buy_date=:buy_date, exp_date=:exp_date, quantity=quantity+:quan where userID=:userID and foodID=:foodID";
     $statement = $db->prepare($query);
     $statement->bindValue(':userID', $userID);
     $statement->bindValue(':foodID', $foodID);
     $statement->bindValue(':location', $location);
     $statement->bindValue(':buy_date', $buy_date);
     $statement->bindValue(':exp_date', $exp_date);
-    $statement->bindValue(':quantity', $quantity);
+    $statement->bindValue(':quan', $quantity);
     $statement->execute();
     $statement->closeCursor();
 }
