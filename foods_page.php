@@ -53,7 +53,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 <head>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>  
@@ -132,6 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         <th width="20%"> Buy Date
         <th width="20%"> Exp Date
         <th width="20%"> Delete
+        <th width="20%"> Update Food
       </tr>
       </thead>
     <?php foreach ($foods as $item): ?>
@@ -148,13 +152,56 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             <input type="submit" name="actionBtn" value="Delete" class="btn btn-danger btn-sm" /> 
             <input type="hidden" name="food_to_delete", value="<?php echo $item['name']; ?>" />
           </form> 
-        </td>            
+        </td>
+        <td>
+          <button id="update-button" class = "update-button">Update</button>
+          <div id="myModal" style="display: none;">
+          <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="updateModalLabel">Update Food Item</h5>
+              <?php echo $item['name']; ?>
+              <button type="button" class="closeModalBtn" data-dismiss="modal" aria-label="Close" id="closeModalBtn">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="update_food.php" method="POST">
+                <div class="form-group">
+                  <label for="location">Location:</label>
+                  <input type="text" class="form-control" id="location" name="location">
+                </div>
+
+                <div class="form-group">
+                  <label for="buyDate">Buy Date:</label>
+                  <input type="date" class="form-control" id="buyDate" name="buyDate">
+                </div>
+
+                <div class="form-group">
+                  <label for="expDate">Expiration Date:</label>
+                  <input type="date" class="form-control" id="expDate" name="expDate">
+                </div>
+
+                <div class="form-group">
+                  <label for="quantity">Quantity:</label>
+                  <input type="number" class="form-control" id="quantity" name="quantity" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Update Food Item</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        </div>      
+        </td>               
       </tr>
     <?php endforeach; ?>
     </table>
   </div> 
 </div>
 <br>
+
   <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
@@ -197,10 +244,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     </div>
 
 </body>
+
 </html>
 <script>
   function toggle_filter_menu(){
     $("#filter_menu").toggle();
   }
+  const buttons = document.querySelectorAll('.update-button');
+  buttons.forEach(function(button) {
+    button.addEventListener('click', function() {
+      var modal = this.nextElementSibling;
+      modal.style.display = "block";
+      positionModal(modal, this);
+    });
+  });
+  function positionModal(modal, button) {
+    var rect = button.getBoundingClientRect();
+    var buttonTop = rect.top + window.pageYOffset;
+    var buttonLeft = rect.left + window.pageXOffset;
+    modal.style.top = buttonTop + button.offsetHeight + "px";
+    modal.style.left = buttonLeft + "px";
+  }
 
+  const closeButtons = document.querySelectorAll('.closeModalBtn');
+  closeButtons.forEach(function(button){
+        button.addEventListener('click', function(){
+          closeModal();
+        });
+    }); 
+
+  // Function to close the modal
+  function closeModal() {
+    console.log("closed Modal Function");
+    var modal = document.getElementById("myModal");
+    modal.style.display = "none";
+  }
 </script>
