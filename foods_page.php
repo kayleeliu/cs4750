@@ -177,7 +177,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                         <input type="number" id="entered-food-quantity" class="form-control" name="entered-food-quantity">
                     </div>
                     <div class="form-group">
-                        <label for="entered-food-location">Where're you putting it:</label>
+                        <label for="entered-food-location">Where are you putting it:</label>
                         <input type="text" id="entered-food-location" class="form-control" name="entered-food-location">
                     </div>
                     <div class="form-group">
