@@ -1,6 +1,7 @@
 <?php
 require("connect-db.php");
 require("recipes.php");
+require("foods.php");
 session_start();
 
 // $_SERVER is a standard PHP object
@@ -10,12 +11,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     if(empty($_SESSION["userID"])) {
         echo '<script>alert("You need to be logged in!")</script>';
     } else {
-        // echo $_POST['name'];
-        $foodID = getFoodID($_POST['name']);
-        echo $foodID;
-        echo 'x';
-        echo $foodID[0];
-        // createRecipe($_POST['prep_time'], $foodID[0], $_POST['link']);
+        $foodID = getFoodId($_POST['name']);
+        echo createRecipe($_POST['prep_time'], $foodID, $_SESSION["userID"], $_POST['link']);
        
     }
   }
@@ -25,11 +22,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<?php include("common-header.php"); ?>
 </head>
 <body>  
-<?php include("navbar.html"); ?> 
+<?php include("navbar.php"); ?>
   <div class="container"> 
     <h1>Create Recipe</h1>
     <form name="mainForm" action="create_recipe_form.php" method="post">
