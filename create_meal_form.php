@@ -1,8 +1,5 @@
 <?php
 require("connect-db.php");
-// include("connect-db.php) 
-// use require if it matters if the db exists or not
-
 require("meals.php");
 session_start();
 
