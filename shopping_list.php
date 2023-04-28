@@ -24,7 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $food_entered = getFoodId($_POST['entered-food-name']);
     echo $food_entered[0];
     $has_food = checkUserHasFood($_SESSION['userID'], $food_entered[0]);
-    echo $has_food[0];
     if($has_food[0] == 0){
       addFoodToInventory($_SESSION['userID'], $food_entered[0], $_POST['entered-food-location'], $_POST['entered-food-buy-date'], $_POST['entered-food-exp-date'], $_POST['entered-food-quantity']);
     }
@@ -41,14 +40,11 @@ $foods = getUserShoppingList($_SESSION["userID"]);
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <?php include("common-header.php"); ?>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>  
-<?php include("navbar.html"); ?>
-
+<body> 
+<?php include("navbar.php"); ?>
 <div class="modal" id="addFoodModal" tabindex="-1" role="dialog" aria-labelledby="addFoodModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
