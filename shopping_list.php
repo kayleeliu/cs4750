@@ -12,7 +12,11 @@ if ($_SESSION["userID"] == 0){
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-  if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Bought")){
+  if(!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Add to Shopping List")){
+    $food_adding_id = getFoodId($_POST['food_name']);
+    addFoodToShoppingList($_SESSION['userID'], $food_adding_id, $_POST['quantity']);
+  }
+  else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Bought")){
     $food_bought_id= getFoodId($_POST['food_bought']);
     boughtFood($_SESSION["userID"], $food_bought_id[0] );
   }
@@ -119,6 +123,9 @@ $foods = getUserShoppingList($_SESSION["userID"]);
     </table>
   </div> 
 </body>
+<footer class="footer fixed-bottom">
+    <button class="btn btn-outline-info btn-lg addShoppingListFooterBtn">Add Food to Shopping List</button>
+</footer>
 </html>
 
 <script>

@@ -12,6 +12,7 @@ session_start();
         <div class="flex-row-reverse justify-content-between">
             <button class="btn btn-outline-primary" onclick="window.location.href='create_meal_form.php'">Create Meal</a> 
             <button class="btn btn-outline-primary" onclick="window.location.href='designed_meals.php'">Designed Meals</a> 
+            <button class="btn btn-outline-primary" onclick="window.location.href='create_recipe_form.php'">Create Recipe</a> 
             <?php
                 echo $_SESSION["userID"] ?
                 "<button class=\"btn btn-outline-primary\" onclick=\"window.location.href='logout.php'\">Logout from ".getUsername($_SESSION["userID"])."</a>" :

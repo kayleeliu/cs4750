@@ -13,12 +13,12 @@ function getFoodName($foodMade){
 
 function getFoodID($foodName){
     global $db;
-    $query = "select * from Recipe r join Food f on r.foodMade = f.id where f.name=:foodName";
+    $query = "select r.foodMade from Recipe r join Food f on r.foodMade = f.id where f.name=:foodName";
     $statement = $db->prepare($query);
     $statement->bindValue(':foodName', $foodName);
     $statement->execute();
     $results = $statement->fetchAll();
-    echo count($results);
+    echo $results[0];
     $statement->closeCursor();
     return $results;
 }

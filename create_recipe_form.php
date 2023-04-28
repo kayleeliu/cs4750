@@ -12,9 +12,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     } else {
         // echo $_POST['name'];
         $foodID = getFoodID($_POST['name']);
-        echo $foodID;
-        echo 'x';
-        echo $foodID[0];
+        // echo $foodID;
+        // echo 'x';
+        // echo $foodID[0];
         // createRecipe($_POST['prep_time'], $foodID[0], $_POST['link']);
        
     }

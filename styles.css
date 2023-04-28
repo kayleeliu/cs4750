@@ -1,9 +1,6 @@
+
 #filter_icon{
     width: 1vw;
-}
-
-.closebtn{
-    size: 2vw;
 }
 
 #filter_menu {
@@ -18,6 +15,12 @@
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidepanel */
   }
 
+  .addShoppingListFooterBtn{
+    position: fixed;
+    right:1vw;
+    bottom:1vh;
+  }
+
   .closebtn{
     position: absolute;
     top: 0;
@@ -28,4 +31,6 @@
   #filter_list li{
     margin-bottom: 2vh;
   }
+
   
+

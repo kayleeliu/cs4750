@@ -125,12 +125,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
       <thead>
       <tr style="background-color:#B0B0B0">
         <th width="20%"> Name     
-        <th width="20%"> Location
-        <th width="20%"> Quantity
-        <th width="20%"> Buy Date
-        <th width="20%"> Exp Date
-        <th width="20%"> Delete
-        <th width="20%"> Update Food
+        <th width="15%"> Location
+        <th width="5%"> Quantity
+        <th width="15%"> Buy Date
+        <th width="15%"> Exp Date
+        <th width="10%"> Delete
+        <th width="10%"> Update Food
+        <th width="10%"> Shopping List
       </tr>
       </thead>
     <?php foreach ($foods as $item): ?>
@@ -187,9 +188,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             </div>
           </div>
         </div>
-
         </div>      
-        </td>               
+        </td>
+        <td> 
+          <button class="btn btn-success" id="add_shopping_list_btn" onclick="openAddShoppingListModal('<?php echo $item['name']; ?>', this)">Add</button> 
+          <div class="modal" id="addShoppingListModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="addModalLabel">Add to Shopping List</h5>
+                  <button type="button" class="closeAddModalBtn" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div> 
+                <form action="shopping_list.php" method="POST"> 
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <label for="quantity">Quantity:</label>
+                      <input type="text" class="form-control" id="quantity" name="quantity">
+                      <input type="hidden" id="addShoppingListFoodName" name="food_name">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary closeAddModalBtn">Close</button>
+                      <input class="btn btn-primary" type="submit" name="actionBtn" value="Add to Shopping List" title="Add to Shopping List" />
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </td>              
       </tr>
     <?php endforeach; ?>
     </table>
@@ -278,4 +306,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     let modal = document.getElementById(modalName+"myModal");
     modal.style.display = "none";
   }
+
+  $(".closeAddModalBtn").click(function(){
+    $("#addShoppingListModal").hide();
+  })
+
+  function openAddShoppingListModal(food_name){
+    $("#addShoppingListFoodName").val(food_name);
+    // change label to display food name
+    $("#addModalLabel").html("Add " + food_name + " to Shopping List");
+    $("#addShoppingListModal").show();
+  }
+
+
 </script>
