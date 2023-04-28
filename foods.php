@@ -6,6 +6,7 @@ function getUserFood($userID){
     $statement->bindValue(':userID', $userID);
     $statement->execute();
     $results = $statement->fetchAll();
+    $statement->closeCursor();
     return $results;
 }
 
@@ -16,6 +17,7 @@ function getUserFoodAlphabetical($userID){
     $statement->bindValue(':userID', $userID);
     $statement->execute();
     $results = $statement->fetchAll();
+    $statement->closeCursor();
     return $results;
 }
 
@@ -26,6 +28,7 @@ function getUserFoodExpiration($userID){
     $statement->bindValue(':userID', $userID);
     $statement->execute();
     $results = $statement->fetchAll();
+    $statement->closeCursor();
     return $results;
 }
 
@@ -36,6 +39,7 @@ function getUserFoodBuyDateOldNew($userID){
     $statement->bindValue(':userID', $userID);
     $statement->execute();
     $results = $statement->fetchAll();
+    $statement->closeCursor();
     return $results;
 }
 
@@ -46,6 +50,7 @@ function getUserFoodBuyDateNewOld($userID){
     $statement->bindValue(':userID', $userID);
     $statement->execute();
     $results = $statement->fetchAll();
+    $statement->closeCursor();
     return $results;
 }
 
@@ -57,6 +62,17 @@ function searchUserFood($userID, $name){
     $statement->bindValue(':name', $name);
     $statement->execute();
     $results = $statement->fetchAll();
+    $statement->closeCursor();
+    return $results;
+}
+
+function getFoodId($foodName){
+    global $db;
+    $query = "select id from Food where name=:foodName";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':foodName', $foodName);
+    $statement->execute();
+    $results = $statement->fetch();
     $statement->closeCursor();
     return $results;
 }
@@ -91,6 +107,15 @@ function addFood($name, $cookedStatus, $userID, $foodLocation, $foodBuyDate, $fo
 
     $userHasFoodStatement->execute();
     $userHasFoodStatement->closeCursor();
+}
+
+function deleteFood($id){
+    global $db;
+    $query = "DELETE FROM user_has_food WHERE foodID=:id"; 
+    $statement = $db->prepare($query);
+    $statement->bindValue(':id', $id);
+    $statement->execute();
+    $statement->closeCursor(); 
 }
 
 ?>
