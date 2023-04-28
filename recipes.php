@@ -32,6 +32,7 @@ function createRecipe($prep_time, $foodID, $userID, $link){
     $statement->bindValue(':userID', $userID);
     $statement->bindValue(':link', $link ? $link : null);
     $statement->execute();
+    echo "<script>alert('Recipe creation successful!');</script>";
     $statement->closeCursor();
 }
 ?>

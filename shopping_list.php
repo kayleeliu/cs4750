@@ -120,8 +120,8 @@ $foods = getUserShoppingList($_SESSION["userID"]);
         </td>            
       </tr>
     <?php endforeach; ?>
-    </table>
-  </div> 
+  </table>
+</div> 
 </body>
 <footer class="footer fixed-bottom">
     <button class="btn btn-outline-info btn-lg addShoppingListFooterBtn">Add Food to Shopping List</button>
@@ -129,7 +129,6 @@ $foods = getUserShoppingList($_SESSION["userID"]);
 </html>
 
 <script>
-  
 $(document).ready(function() {
   $(".close_btn").click(function(){
     $("#addFoodModal").hide();
@@ -142,7 +141,4 @@ function openModal(food_name, food_quantity){
     $('#entered-food-name').val(food_name);  
     $('#entered-food-quantity').val(food_quantity);
   }
-
-
-
 </script>
