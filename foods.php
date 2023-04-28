@@ -74,25 +74,38 @@ function getFoodId($foodName){
     $statement->execute();
     $results = $statement->fetch();
     $statement->closeCursor();
-    return $results;
+    return $results["id"];
+}
+
+function foodNameExists($name) {
+    global $db;
+    $stmt = $db->prepare("SELECT * FROM Food WHERE name=?");
+    $stmt->execute([$name]);
+    return $stmt->rowCount();
 }
 
 function addFood($name, $cookedStatus, $userID, $foodLocation, $foodBuyDate, $foodExpDate, $foodQuantity){
     global $db;
-    $query = "INSERT INTO Food (name, cooked) VALUES (:foodName, :cooked)";
-    $statement = $db->prepare($query);
-    $statement->bindValue(':foodName', $name);
-    if($cookedStatus == "cooked"){
-        $cookedStatusBool = true;
-    }else if($cookedStatus == "notCooked"){
-        $cookedStatusBool = false;
+    $lastFoodID = 0;
+    if(getFoodId($name)){ 
+        //the food exists in Food table already
+        $lastFoodID = getFoodId($name);
     }else{
-        $cookedStatusBool = NULL;
-    }
-    $statement->bindValue(':cooked', $cookedStatusBool, PDO::PARAM_BOOL);
-    $statement->execute();
-    $statement->closeCursor();
-    $lastFoodID = $db->lastInsertId();
+        $query = "INSERT INTO Food (name, cooked) VALUES (:foodName, :cooked)";
+        $statement = $db->prepare($query);
+        $statement->bindValue(':foodName', $name);
+        if($cookedStatus == "cooked"){
+            $cookedStatusBool = true;
+        }else if($cookedStatus == "notCooked"){
+            $cookedStatusBool = false;
+        }else{
+            $cookedStatusBool = NULL;
+        }
+        $statement->bindValue(':cooked', $cookedStatusBool, PDO::PARAM_BOOL);
+        $statement->execute();
+        $statement->closeCursor();
+        $lastFoodID = $db->lastInsertId();
+    }   
     $userHasFoodquery = "INSERT INTO user_has_food 
                         (userID, foodID, location, buy_date, exp_date, quantity) 
                         VALUES (:inputUserID, :inputFoodID, :inputLocation, :input_buy, :input_exp, :input_quant)";
