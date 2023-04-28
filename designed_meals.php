@@ -45,10 +45,10 @@ $meals = getMealsUserDesigned($_SESSION["userID"]);
         <td><?php echo $meal['calorie_count'] ? $meal['calorie_count'] . " calories" : "" ?></td>  
         <td><?php echo $meal['prep_time'] ? $meal['prep_time'] . " min." : "" ?></td>  
         <td>
-            <form name="Edit meal" action="edit_meal.php">
-                <input type="hidden" name="mealID" value=<?php echo $meal['mealID'] ?>>
+          <form name="Edit meal" action="edit_meal.php">
+            <input type="hidden" name="mealID" value=<?php echo $meal['mealID'] ?>>
             <input class="btn btn-primary" type="submit" value="Edit">
-    </form>
+          </form>
         </td>           
       </tr>
     <?php endforeach; ?>

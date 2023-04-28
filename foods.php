@@ -74,7 +74,14 @@ function getFoodId($foodName){
     $statement->execute();
     $results = $statement->fetch();
     $statement->closeCursor();
-    return $results;
+    return $results["id"];
+}
+
+function foodNameExists($name) {
+    global $db;
+    $stmt = $db->prepare("SELECT * FROM Food WHERE name=?");
+    $stmt->execute([$name]);
+    return $stmt->rowCount();
 }
 
 function addFood($name, $cookedStatus, $userID, $foodLocation, $foodBuyDate, $foodExpDate, $foodQuantity){
@@ -82,7 +89,7 @@ function addFood($name, $cookedStatus, $userID, $foodLocation, $foodBuyDate, $fo
     $lastFoodID = 0;
     if(getFoodId($name)){ 
         //the food exists in Food table already
-        $lastFoodID = getFoodId($name)[0];
+        $lastFoodID = getFoodId($name);
     }else{
         $query = "INSERT INTO Food (name, cooked) VALUES (:foodName, :cooked)";
         $statement = $db->prepare($query);

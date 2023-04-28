@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
   }
   else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Delete")){
     $foodID = getFoodId($_POST['food_to_delete']);
-    deleteFood($foodID[0]);
+    deleteFood($foodID);
     $foods = getUserFood($_SESSION["userID"]);
   }
 

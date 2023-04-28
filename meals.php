@@ -37,7 +37,7 @@ function updateMeal($mealID, $name, $num_of_servings, $prep_time, $calorie_count
             $prep_time ? $prep_time : NULL, 
             $calorie_count ? $calorie_count : NULL,
             $time_of_day, 
-            $mealID
+            $mealI
         ]);
 } 
 
@@ -46,7 +46,6 @@ function deleteMeal($mealID) {
     $result = $db
         ->prepare("DELETE FROM Meal WHERE id=?")
         ->execute([$mealID]);
-    echo $result ? "good" : "bad";
 }
 
 function getMeal($mealID) {
@@ -73,7 +72,6 @@ function getMealsUserDesigned($userID) {
 function addFoodToMeal($foodID, $mealID, $quantity){
     global $db;
     $query = "INSERT INTO is_part_of VALUES (:foodID, :mealID, :quantity)";
-
     $statement = $db->prepare($query);
     $statement->bindValue(':foodID', $foodID);
     $statement->bindValue(':mealID', $mealID);
@@ -81,4 +79,20 @@ function addFoodToMeal($foodID, $mealID, $quantity){
     $statement->execute();
     $statement->closeCursor();
 }
+
+function deleteFoodFromMeal($foodID) {
+    echo $foodID;
+    global $db;
+    $db
+        ->prepare("DELETE FROM is_part_of WHERE foodID=?")
+        ->execute([$foodID]);
+}
+
+function getFoodsOfMeal($mealID) {
+    global $db;
+    $stmt = $db->prepare("SELECT * FROM is_part_of JOIN Food ON Food.id=is_part_of.FoodID WHERE mealID=?");
+    $stmt->execute([$mealID]); 
+    return $stmt->fetchAll();
+}
+
 ?>
