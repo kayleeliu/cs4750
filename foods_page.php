@@ -155,13 +155,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         </td>
         <td>
           <button id="update-button" class = "update-button">Update</button>
-          <div id="myModal" style="display: none;">
+          <div id="<?php echo $item['name']; ?>myModal" style="display: none;">
           <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="updateModalLabel">Update Food Item</h5>
               <?php echo $item['name']; ?>
-              <button type="button" class="closeModalBtn" data-dismiss="modal" aria-label="Close" id="closeModalBtn">
+              <button type="button" class="closeModalBtn" data-dismiss="modal" aria-label="Close" id="closeModalBtn" data-food-name= "<?php echo $item['name']; ?>">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
@@ -253,15 +253,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
   const buttons = document.querySelectorAll('.update-button');
   buttons.forEach(function(button) {
     button.addEventListener('click', function() {
-      var modal = this.nextElementSibling;
+      let modal = this.nextElementSibling;
       modal.style.display = "block";
       positionModal(modal, this);
     });
   });
-  function positionModal(modal, button) {
-    var rect = button.getBoundingClientRect();
-    var buttonTop = rect.top + window.pageYOffset;
-    var buttonLeft = rect.left + window.pageXOffset;
+   function positionModal(modal, button) {
+    let rect = button.getBoundingClientRect();
+    let buttonTop = rect.top + window.pageYOffset;
+    let buttonLeft = rect.left + window.pageXOffset;
     modal.style.top = buttonTop + button.offsetHeight + "px";
     modal.style.left = buttonLeft + "px";
   }
@@ -269,14 +269,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
   const closeButtons = document.querySelectorAll('.closeModalBtn');
   closeButtons.forEach(function(button){
         button.addEventListener('click', function(){
-          closeModal();
+          let modalName = this.getAttribute('data-food-name');
+          console.log(modalName);
+          closeModal(modalName);
         });
     }); 
 
   // Function to close the modal
-  function closeModal() {
+  function closeModal(modalName) {
     console.log("closed Modal Function");
-    var modal = document.getElementById("myModal");
+    let modalID = modalName+"myModal";
+    console.log(modalID);
+    let modal = document.getElementById(modalName+"myModal");
     modal.style.display = "none";
   }
 </script>
