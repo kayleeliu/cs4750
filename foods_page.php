@@ -31,21 +31,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
       break;
     }
   }
-}
-
-  if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Search")){
+  else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Search")){
     if ($_POST['searchTerm'] != NULL){
       $foods = searchUserFood($_SESSION["userID"], $_POST['searchTerm']);
     }
   }
-  if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-    if (!empty($_POST['foodActionBtn']) && ($_POST['foodActionBtn'] == "Enter New Food")){
+  else if (!empty($_POST['foodActionBtn']) && ($_POST['foodActionBtn'] == "Enter New Food")){
       addFood($_POST['entered-food-name'], $_POST['cooked-status'], $_SESSION['userID'], $_POST['entered-food-location'], $_POST['entered-food-buy-date'], $_POST['entered-food-exp-date'], $_POST['entered-food-quantity']);
-    }
   }
-  
+  else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Delete")){
+    $foodID = getFoodId($_POST['food_to_delete']);
+    deleteFood($foodID[0]);
+    $foods = getUserFood($_SESSION["userID"]);
+  }
 
-
+}
 ?>
 
 <!DOCTYPE html>
@@ -131,6 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         <th width="20%"> Quantity
         <th width="20%"> Buy Date
         <th width="20%"> Exp Date
+        <th width="20%"> Delete
       </tr>
       </thead>
     <?php foreach ($foods as $item): ?>
@@ -141,7 +142,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         <td><?php echo $item['location']; ?></td>        
         <td><?php echo $item['quantity']; ?></td>  
         <td><?php echo $item['buy_date']; ?></td>  
-        <td><?php echo $item['exp_date']; ?></td>             
+        <td><?php echo $item['exp_date']; ?></td>     
+        <td>
+          <form action="foods_page.php" method="post">
+            <input type="submit" name="actionBtn" value="Delete" class="btn btn-danger btn-sm" /> 
+            <input type="hidden" name="food_to_delete", value="<?php echo $item['name']; ?>" />
+          </form> 
+        </td>            
       </tr>
     <?php endforeach; ?>
     </table>
