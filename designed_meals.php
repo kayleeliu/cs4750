@@ -8,21 +8,18 @@ session_start();
 if ($_SESSION["userID"] == 0){
   header("Location: login_form.php");
 }
-
 $meals = getMealsUserDesigned($_SESSION["userID"]);
-
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <?php include("common-header.php"); ?>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>  
-<?php include("navbar.html"); ?>
+
+<?php include("navbar.php"); ?>
 <div class="row justify-content-center">  
     <table class="w3-table w3-bordered w3-card-4 center" style="width:70%">
       <thead>

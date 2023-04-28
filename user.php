@@ -58,7 +58,13 @@ function getUserID($username){
     $statement->execute();
     $results = $statement->fetch();
     $statement->closeCursor();
-    return $results;
+    return $results["id"];
 }
 
+function getUsername($userID) {
+    global $db;
+    $stmt = $db->prepare("SELECT username FROM User WHERE id=?");
+    $stmt->execute([$userID]);
+    return $stmt->fetch()["username"];
+}
 ?>

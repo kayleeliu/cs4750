@@ -4,13 +4,11 @@ require("user.php");
 
 // get previous session
 session_start();
-// remove all session variables
-session_unset();
-// destroy the session
-session_destroy();
 
-// start new session
-session_start();
+// if already logged in, redirect to home page
+if ($_SESSION["userID"]){
+  header("Location: index.php");
+}
 
 
 // $_SERVER is a standard PHP object
@@ -20,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     if($results[0] != 0){
       $userID = getUserID($_POST['username']);
       # save userID in session
-      $_SESSION["userID"] = $userID[0];
+      $_SESSION["userID"] = $userID;
       header("Location: foods_page.php");
     }
     else {
@@ -33,12 +31,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<?php include("common-header.php"); ?>
 </head>
 <body>  
 <?php
-include("navbar.html")
+include("navbar.php")
 ?> 
 
   <div class="container"> 
