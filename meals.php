@@ -41,11 +41,7 @@ function updateMeal($mealID, $name, $num_of_servings, $prep_time, $calorie_count
             $num_of_servings ? $num_of_servings : NULL,
             $prep_time ? $prep_time : NULL,
             $calorie_count ? $calorie_count : NULL,
-<<<<<<< Updated upstream
             $time_of_day, 
-=======
-            $time_of_day,
->>>>>>> Stashed changes
             $mealID
         ]);
 }
