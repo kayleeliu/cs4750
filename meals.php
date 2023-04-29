@@ -37,7 +37,7 @@ function updateMeal($mealID, $name, $num_of_servings, $prep_time, $calorie_count
             $prep_time ? $prep_time : NULL, 
             $calorie_count ? $calorie_count : NULL,
             $time_of_day, 
-            $mealI
+            $mealID
         ]);
 } 
 
