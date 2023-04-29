@@ -16,13 +16,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $food_adding_id = getFoodId($_POST['food_name']);
     addFoodToShoppingList($_SESSION['userID'], $food_adding_id, $_POST['quantity']);
   }
+  else if(!empty($_POST['foodActionBtn']) && ($_POST['foodActionBtn'] == "Add to Shopping List")){
+    $food_exists = foodNameExists($_POST['food_name']);
+    if($food_exists == 0){
+      addFoodToDB($_POST['food_name'], $_POST['cooked-status']);
+    }
+    $food_adding_id = getFoodId($_POST['food_name']);
+    addFoodToShoppingList($_SESSION['userID'], $food_adding_id, $_POST['quantity']);
+  }
   else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Bought")){
     $food_bought_id= getFoodId($_POST['food_bought']);
-    boughtFood($_SESSION["userID"], $food_bought_id[0] );
+    boughtFood($_SESSION["userID"], $food_bought_id);
   }
   else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Delete")){
     $food_delete_id = getFoodId($_POST['food_to_delete']);
-    deleteFoodFromShoppingList($_SESSION["userID"], $food_delete_id[0]);
+    deleteFoodFromShoppingList($_SESSION["userID"], $food_delete_id);
   }
   else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Add Food")){
     $food_entered = getFoodId($_POST['entered-food-name']);
@@ -48,12 +56,12 @@ $foods = getUserShoppingList($_SESSION["userID"]);
 </head>
 <body> 
 <?php include("navbar.php"); ?>
-<div class="modal" id="addFoodModal" tabindex="-1" role="dialog" aria-labelledby="addFoodModalLabel" aria-hidden="true">
+<div class="modal" id="boughtFoodModal" tabindex="-1" role="dialog" aria-labelledby="boughtFoodModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addFoodModalLabel">Add Food</h5>
-        <button type="button" class="close close_btn" aria-label="Close">
+        <h5 class="modal-title" id="boughtFoodModalLabel">Add Food</h5>
+        <button type="button" class="close close_bought_modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -81,27 +89,22 @@ $foods = getUserShoppingList($_SESSION["userID"]);
             </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary close_btn">Close</button>
+          <button type="button" class="btn btn-secondary close_bought_modal">Close</button>
           <input class="btn btn-primary" type="submit" name="actionBtn" value="Add Food" title="Add Food" />
         </div>
       </form>
     </div>
   </div>
 </div>
-<div class="jumbotron feature">
-        <div class="container">
-            <h1>Shopping Cart</h1>
-            <p>Keep track of the foods you want to buy!</p>
-        </div>
-</div>
+
 <div class="row justify-content-center">  
     <table class="w3-table w3-bordered w3-card-4 center" style="width:70%">
       <thead>
       <tr style="background-color:#B0B0B0">
         <th width="50%"> Name     
-        <th width="16%"> Quantity
-        <th width="16%"> Bought
-        <th width="16%"> Delete
+        <th width="30%"> Quantity
+        <th width="10%"> Bought
+        <th width="10%"> Delete
       </tr>
       </thead>
     <?php foreach ($foods as $item): ?>
@@ -115,7 +118,7 @@ $foods = getUserShoppingList($_SESSION["userID"]);
             <input type="submit" name="actionBtn" value="Bought" class="btn btn-success btn-sm" /> 
             <input type="hidden" name="food_bought", value="<?php echo $item['name']; ?>" />
           </form>  -->
-          <button type="button" class="btn btn-success btn-sm bought_btn" onclick="openModal('<?php echo $item['name']; ?>' ,'<?php echo $item['quantity']; ?>', this);">Bought</button>
+          <button type="button" class="btn btn-success btn-sm bought_btn" onclick="openBoughtFoodModal('<?php echo $item['name']; ?>' ,'<?php echo $item['quantity']; ?>', this);">Bought</button>
         </td>       
         <td>
           <form action="shopping_list.php" method="post">
@@ -125,25 +128,75 @@ $foods = getUserShoppingList($_SESSION["userID"]);
         </td>            
       </tr>
     <?php endforeach; ?>
-  </table>
-</div> 
+    </table>
+  </div> 
 </body>
 <footer class="footer fixed-bottom">
-    <button class="btn btn-outline-info btn-lg addShoppingListFooterBtn">Add Food to Shopping List</button>
+    <button class="btn btn-outline-info btn-lg addShoppingListFooterBtn" onclick="openAddFoodModal()">Add Food to Shopping List</button>
 </footer>
+<div class="modal" id="addFoodModal" tabindex="-1" role="dialog" aria-labelledby="addFoodModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addFoodModalLabel">Add Food to Shopping List</h5>
+        <button type="button" class="close close_add_modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="foodForm" action="shopping_list.php" method="post" class="form-border">
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="food_name">Food Name:</label>
+                <input type="text" id="food_name" class="form-control" name="food_name">
+            </div>
+            <div class="form-group">
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" class="form-control" name="quantity">
+            </div>
+            <div class="form-group">
+              <label for="cooked">Is it cooked?</label>
+              <select id="cooked-status" name="cooked-status" class="form-control cooked-status">
+                  <option value="cooked">Cooked</option>
+                  <option value="notCooked">Not Cooked</option>
+                  <option value="NULL">N/A</option>
+              </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary close_add_modal">Close</button>
+          <input class="btn btn-primary" type="submit" name="foodActionBtn" value="Add to Shopping List" title="Add to Shopping List"/>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 </html>
 
 <script>
+  
 $(document).ready(function() {
-  $(".close_btn").click(function(){
+  $(".close_bought_modal").click(function(){
+    $("#boughtFoodModal").hide();
+  })
+
+  $(".close_add_modal").click(function(){
     $("#addFoodModal").hide();
   })
 })
 
-function openModal(food_name, food_quantity){
+function openBoughtFoodModal(food_name, food_quantity){
     console.log(food_name + food_quantity);
-    $('#addFoodModal').show();
+    $('#boughtFoodModal').show();
     $('#entered-food-name').val(food_name);  
     $('#entered-food-quantity').val(food_quantity);
-  }
+}
+
+function openAddFoodModal(){
+  $("#addFoodModal").show();
+}
+
+
+
+
 </script>

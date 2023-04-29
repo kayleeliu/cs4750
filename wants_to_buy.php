@@ -40,3 +40,20 @@ function addFoodToShoppingList($userID, $foodID, $quantity){
     $statement->execute();
     $statement->closeCursor(); 
 }
+
+function addFoodToDB($foodName, $cookedStatus){
+    global $db;
+    $query = "insert into Food (name, cooked) values (:foodName, :cooked)"; 
+    $statement = $db->prepare($query);
+    $statement->bindValue(':foodName', $foodName);
+    if($cookedStatus == "cooked"){
+        $cookedStatusBool = true;
+    }else if($cookedStatus == "notCooked"){
+        $cookedStatusBool = false;
+    }else{
+        $cookedStatusBool = NULL;
+    }
+    $statement->bindValue(':cooked', $cookedStatusBool, PDO::PARAM_BOOL);
+    $statement->execute();
+    $statement->closeCursor(); 
+}
