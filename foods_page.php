@@ -112,6 +112,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     <form>
   </div>
 </div> 
+<div class="jumbotron feature">
+        <div class="container">
+            <h1>My Foods</h1>
+            <p>Search, view, and enter new foods here!</p>
+        </div>
+</div>
 <form name="mainForm" action="foods_page.php" method="post">
   <div class="row justify-content-center" style="padding:20px;">
     <div class="search">

@@ -32,5 +32,17 @@
     margin-bottom: 2vh;
   }
 
-  
-
+/* STYLE FOR TOP BANNER */
+.feature {
+	background-color: rgb(191, 214, 227);
+	color: black;
+    text-align: center;
+    padding: 75px;
+}
+h1 {
+    font-size: 50px;
+}
+.feature2 {
+    text-align: center;
+    padding-top: 50px;
+}

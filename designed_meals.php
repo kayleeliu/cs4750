@@ -20,7 +20,7 @@ $meals = getMealsUserDesigned($_SESSION["userID"]);
 <body>  
 
 <?php include("navbar.php"); ?>
-<div class="row justify-content-center">  
+<div class="row justify-content-center"> 
     <table class="w3-table w3-bordered w3-card-4 center" style="width:70%">
       <thead>
       <tr style="background-color:#B0B0B0">

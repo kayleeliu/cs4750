@@ -88,7 +88,12 @@ $foods = getUserShoppingList($_SESSION["userID"]);
     </div>
   </div>
 </div>
-
+<div class="jumbotron feature">
+        <div class="container">
+            <h1>Shopping Cart</h1>
+            <p>Keep track of the foods you want to buy!</p>
+        </div>
+</div>
 <div class="row justify-content-center">  
     <table class="w3-table w3-bordered w3-card-4 center" style="width:70%">
       <thead>
