@@ -1,16 +1,4 @@
 <?php
-
-// function getFoodName($foodMade){
-//     global $db;
-//     $query = "SELECT name FROM Recipe r JOIN Food f on r.foodMade = f.id WHERE id=:foodMade";
-//     $statement = $db->prepare($query);
-//     $statement->bindValue(':foodMade', $foodMade);
-//     $statement->execute();
-//     $results = $statement->fetchAll();
-//     $statement->closeCursor();
-//     return $results;
-// }
-
 function checkFoodExists($foodName){
     global $db;
     $query = "select name from Recipe r join Food f on r.foodMade = f.id where f.name=:foodName";
@@ -34,5 +22,45 @@ function createRecipe($prep_time, $foodID, $userID, $link){
     $statement->execute();
     echo "<script>alert('Recipe creation successful!');</script>";
     $statement->closeCursor();
+}
+
+function getRecipeFoods($userID) {
+    global $db;
+    $statement = $db->prepare("SELECT * FROM Recipe WHERE userID=:userID");
+    $statement->bindValue(':userID', $userID);
+    $statement->execute();
+    return $statement->fetchAll();
+}
+
+function getRecipe($recipeID) {
+    global $db;
+    $stmt = $db->prepare("SELECT * FROM Recipe WHERE id=?");
+    $stmt->execute([$recipeID]);
+    return $stmt->fetch();
+}
+
+function madeRecipe($recipeID, $userID) {
+    global $db;
+    $stmt = $db->prepare("SELECT * FROM Recipe WHERE id=? AND userID=?");
+    $stmt->execute([$recipeID, $userID]);
+    return $stmt->rowCount() > 0;
+}
+
+function updateRecipe($prep_time, $link, $id) {
+    global $db;
+    $query = "UPDATE Recipe SET prep_time=:prep_time, link=:link WHERE id=:id";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':prep_time', $prep_time);
+    $statement->bindValue(':link', $link);
+    $statement->bindValue(':id', $id);
+    $statement->execute();
+    $statement->closeCursor();
+}
+
+function deleteRecipe($id) {
+    global $db;
+    $result = $db
+        ->prepare("DELETE FROM Recipe WHERE id=?")
+        ->execute([$id]);
 }
 ?>

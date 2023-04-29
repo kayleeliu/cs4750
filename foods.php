@@ -77,6 +77,17 @@ function getFoodId($foodName){
     return $results["id"];
 }
 
+function getFoodName($foodID){
+    global $db;
+    $query = "select name from Food where id=:foodID";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':foodID', $foodID);
+    $statement->execute();
+    $results = $statement->fetch();
+    $statement->closeCursor();
+    return $results["name"];
+}
+
 function foodNameExists($name) {
     global $db;
     $stmt = $db->prepare("SELECT * FROM Food WHERE name=?");
