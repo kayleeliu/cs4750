@@ -11,6 +11,10 @@ if($_SESSION["userID"] == 0) {
   header("Location: login_form.php");
 }
 
+if($_POST["copyMeal"]) {
+  $_POST["mealID"] = copyMealToUser($_SESSION["userID"], $_POST["mealID"]);
+}
+
 $mealID = $_GET["mealID"] ? $_GET["mealID"] : $_POST["mealID"];
 if(!$mealID || !madeMeal($mealID, $_SESSION["userID"])) {
   header("Location: designed_meals.php");
@@ -32,6 +36,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     deleteFoodFromMeal($_POST["foodID"]);
   }
 }
+
+
 
 $meal = getMeal($mealID);
 $foods = getFoodsOfMeal($mealID);
