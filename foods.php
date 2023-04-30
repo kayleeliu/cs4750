@@ -182,48 +182,19 @@ function addFoodToInventory($userID, $foodID, $location, $buy_date, $exp_date, $
     $statement->closeCursor();
 }
 
-function updateLocation($userID, $foodID, $location){
+function updateFood($userID, $foodID, $location, $quantity, $buy_date, $exp_date){
     global $db;
-    $query = "UPDATE user_has_food SET location = :newLocation WHERE userID = :userID AND foodID = :foodID";
+    $query = "UPDATE user_has_food SET location = :newLocation, quantity = :newQuantity, buy_date = :newBuyDate, exp_date = :newExpDate WHERE userID = :userID AND foodID = :foodID";
     $statement = $db->prepare($query);
     $statement->bindValue(':userID', $userID);
     $statement->bindValue(':foodID', $foodID);
     $statement->bindValue(':newLocation', $location);
-    $statement->execute();
-    $statement->closeCursor();
-}
-
-function updateQuantity($userID, $foodID, $quantity){
-    global $db;
-    $query = "UPDATE user_has_food SET quantity = :newQuantity WHERE userID = :userID AND foodID = :foodID";
-    $statement = $db->prepare($query);
-    $statement->bindValue(':userID', $userID);
-    $statement->bindValue(':foodID', $foodID);
     $statement->bindValue(':newQuantity', $quantity);
-    $statement->execute();
-    $statement->closeCursor();
-}
-
-function updateBuyDate($userID, $foodID, $buyDate){
-    global $db;
-    $query = "UPDATE user_has_food SET buy_date = :newBuyDate WHERE userID = :userID AND foodID = :foodID";
-    $statement = $db->prepare($query);
-    $statement->bindValue(':userID', $userID);
-    $statement->bindValue(':foodID', $foodID);
-    $statement->bindValue(':newBuyDate', $buyDate);
+    $statement->bindValue(':newBuyDate', $buy_date);
+    $statement->bindValue(':newExpDate', $exp_date);
     $statement->execute();
     $statement->closeCursor();
 }
 
 
-function updateExpDate($userID, $foodID, $expDate){
-    global $db;
-    $query = "UPDATE user_has_food SET exp_date = :newExpDate WHERE userID = :userID AND foodID = :foodID";
-    $statement = $db->prepare($query);
-    $statement->bindValue(':userID', $userID);
-    $statement->bindValue(':foodID', $foodID);
-    $statement->bindValue(':newExpDate', $expDate);
-    $statement->execute();
-    $statement->closeCursor();
-}
 ?>

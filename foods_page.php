@@ -44,31 +44,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     deleteFood($foodID);
     $foods = getUserFood($_SESSION["userID"]);
   }
-  else if (!empty($_POST['updateLocationBtn']) && ($_POST['updateLocationBtn'] == "updateLocation")){
-    $foodID = getFoodId($_POST['location_food_name']);
+  else if (!empty($_POST['updateFoodBtn']) && ($_POST['updateFoodBtn'] == "updateFood")){
+    $foodID = getFoodId($_POST['updateFoodName']);
     $userID = $_SESSION["userID"];
     $updatedLocation = $_POST['updatedLocation'];
-    updateLocation($userID, $foodID, $updatedLocation);
-  }
-  else if (!empty($_POST['udpateQuantityBtn']) && ($_POST['udpateQuantityBtn'] == "updateQuantity")){
-    $foodID = getFoodId($_POST['quantity_food_name']);
-    $userID = $_SESSION["userID"];
-    $updatedQuantity = $_POST['updatedQuantity'];
-    updateQuantity($userID, $foodID, $updatedQuantity);
-  }
-  else if (!empty($_POST['updateBuyDateBtn']) && ($_POST['updateBuyDateBtn'] == "updateBuyDate")){
-    $foodID = getFoodId($_POST['buy_food_name']);
-    $updatedBuyDate = $_POST['updatedBuyDate'];
-    $userID = $_SESSION["userID"];
-    updateBuyDate($userID, $foodID, $updatedBuyDate);
-  }
-  else if (!empty($_POST['updateExpDateBtn']) && ($_POST['updateExpDateBtn'] == "updateExpDate")){
-    $foodID = getFoodId($_POST['exp_food_name']);
     $updatedExpDate = $_POST['updatedExpDate'];
-    $userID = $_SESSION["userID"];
-    updateExpDate($userID, $foodID, $updatedExpDate);
+    $updatedBuyDate = $_POST['updatedBuyDate'];
+    $updatedQuantity = $_POST['updatedQuantity'];
+    updateFood($userID, $foodID, $updatedLocation, $updatedQuantity, $updatedBuyDate, $updatedExpDate);
   }
-
 }
 ?>
 
@@ -180,51 +164,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
           </form> 
         </td>
         <td>
-        <button class="btn btn-primary btn-sm" id="update_food_btn" onclick="openUpdateFoodModal('<?php echo $item['name']; ?>', this)">Update</button> 
+        <button class="btn btn-primary btn-sm" id="update_food_btn" onclick="openUpdateFoodModal('<?php echo $item['name']; ?>', '<?php echo $item['location']; ?>', '<?php echo $item['quantity']; ?>', '<?php echo $item['buy_date']; ?>', '<?php echo $item['exp_date']; ?>', this)">Update</button> 
           <div class="modal" id="updateFoodModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="updateModalLabel">Update Food</h5>
-                  <button type="button" class="closeUpdateModalBtn" aria-label="Close">
+                  <button type="button" class="close closeUpdateModalBtn" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div> 
                   <div class="modal-body">
                   <form action="foods_page.php" method="POST" > 
+                    <input type="hidden" id="updateFoodName" name="updateFoodName">
                     <div class="form-group" style = "margin-top: 10px;">
                       <label for="updateLocation">Location:</label>
                       <input type="text" class="form-control" id="updatedLocation" name="updatedLocation" required>
-                      <input type="hidden" id="updateLocationFoodName" name="location_food_name">
-                      <button class="btn btn-primary float-right" type="submit" name="updateLocationBtn" value="updateLocation" title="updateLocationBtn" style = "margin-top:10px">Update Location</button>
                     </div>
-                  </form> 
-                  <form action="foods_page.php" method="POST" > 
                     <div class="form-group" style = "margin-top: 10px;">
                       <label for="quantity">Quantity:</label>
                       <input type="text" class="form-control" id="updatedQuantity" name="updatedQuantity" required>
-                      <input type="hidden" id="updateQuantityFoodName" name="quantity_food_name">
-                      <button class="btn btn-primary float-right" type="submit" name="udpateQuantityBtn" value="updateQuantity" title="updateQuantityBtn"style = "margin-top:10px" >Update Quantity</button>
                     </div>
-                  </form>
-                  <form action="foods_page.php" method="POST"> 
                     <div class="form-group"  style = "margin-top: 10px;">
                       <label for="updateBuyDate">Buy Date:</label>
                       <input type="date" class="form-control" id="updatedBuyDate" name="updatedBuyDate" required>
-                      <input type="hidden" id="updateBuyDateFoodName" name="buy_food_name">
-                      <button class="btn btn-primary float-right" type="submit" name="updateBuyDateBtn" value="updateBuyDate" title="updateBuyDateBtn" style = "margin-top:10px">Update Buy Date</button>
                     </div>
-                  </form>
-                  <form action="foods_page.php" method="POST" > 
                     <div class="form-group" style = "margin-top: 10px;">
                       <label for="updateExpDate">Expiration Date:</label>
-                      <input type="date" class="form-control" id="updatedExpDate" name="updatedExpDate" required>
-                      <input type="hidden" id="updateExpDateFoodName" name="exp_food_name">
-                      <button class="btn btn-primary float-right" type="submit" name="updateExpDateBtn" value="updateExpDate" title="updateExpDateBtn" style = "margin-top:10px">Update Expiration Date</button>
+                      <input type="date" class="form-control" id="updatedExpDate" value="<?php echo $item["exp_date"]; ?>" name="updatedExpDate" required>
+                    </div>
+                    <div class="modal-footer">
+                      <button class="btn btn-primary float-right" type="submit" name="updateFoodBtn" value="updateFood" title="updateFoodBtn" style = "margin-top:10px">Update Food</button>
                     </div>
                   </form>
-                    <div class="modal-footer">
-                    </div>
                   </div>
               </div>
             </div>
@@ -238,7 +210,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="addModalLabel">Add to Shopping List</h5>
-                  <button type="button" class="closeAddModalBtn" aria-label="Close">
+                  <button type="button" class="close closeAddModalBtn" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div> 
@@ -360,11 +332,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
   }
 
 
-  function openUpdateFoodModal(food_name){
-    $("#updateLocationFoodName").val(food_name);
-    $("#updateQuantityFoodName").val(food_name);
-    $("#updateBuyDateFoodName").val(food_name);
-    $("#updateExpDateFoodName").val(food_name);
+  function openUpdateFoodModal(food_name, food_location, food_quantity, food_buy_date, food_exp_date){
+    $("#updateFoodName").val(food_name);
+    $("#updatedLocation").val(food_location);
+    $("#updatedQuantity").val(food_quantity);
+    $("#updatedBuyDate").val(food_buy_date);
+    $("#updatedExpDate").val(food_exp_date);
     // change label to display food name
     $("#updateModalLabel").html("Update " + food_name);
     $("#updateFoodModal").show();
