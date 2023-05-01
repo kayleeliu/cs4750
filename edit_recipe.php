@@ -42,45 +42,53 @@ $foods = getFoodsRecipeUses($recipeID);
 <html lang="en">
 <head>
 <?php include("common-header.php"); ?>
+<link rel="stylesheet" href="styles.css">
+
 </head>
 <body>  
   <?php include("navbar.php"); ?> 
-  <div class="container"> 
-    <h1>Edit Recipe</h1>
-    <form name="editRecipe" action="edit_recipe.php" method="post">
-      <div class="row mb-3 mx-3"> Name of Recipe:
-        <input type="text" class="form-control" name="name" value="<?php echo getFoodName($recipe['foodMade']); ?>" readonly />     
-      </div>  
-      <div class="row mb-3 mx-3">Prep time (min): 
-        <input type="number" class="form-control" value="<?php echo $recipe["prep_time"]; ?>" name="prep_time" />
-      </div>  
-      <div class="row mb-3 mx-3">Link: 
-        <input type="text" class="form-control" value="<?php echo $recipe["link"]; ?>" name="link" />
-      </div>  
-      <div class="row mb-3 mx-3">
-        <input type="hidden" name="recipeID" value=<?php echo $recipeID ?>>
-        <input class="btn btn-primary" type="submit" name="updateRecipe" value="Update" />
-        <input class="btn btn-danger" type="submit" name="deleteRecipe" value="Delete" />
-      </div>
-    </form>  
-    <h1>Add food</h1>
-    <form name="addFood" action="edit_recipe.php" method="post">
-      <div class="row mb-3 mx-3"> Name:
-        <input type="text" class="form-control" name="name" required />     
-      </div>  
-      <div class="row mb-3 mx-3">Quantity: 
-        <input type="number" class="form-control" name="quantity" required />    
-      </div>  
-      <div class="row mb-3 mx-3">Units: 
-        <input type="text" class="form-control" name="units" required />    
-      </div> 
-      <div class="row mb-3 mx-3">
-        <input type="hidden" name="recipeID" value=<?php echo $recipeID ?>>
-        <input class="btn btn-primary" type="submit" name="addFood" value="Add Food" />
-      </div>
-    </form> 
-    <div class="row justify-content-center">  
-    <table class="w3-table w3-bordered w3-card-4 center" style="width:70%">
+  <div id = "outer_form_container" class = "outer_form_container">
+    <div class="edit_recipe_form" id = "edit_recipe_form"> 
+      <h1>Edit Recipe</h1>
+      <form name="editRecipe" action="edit_recipe.php" method="post">
+        <div class="row mb-3 mx-3"> Name of Recipe:
+          <input type="text" class="form-control" name="name" value="<?php echo getFoodName($recipe['foodMade']); ?>" readonly />     
+        </div>  
+        <div class="row mb-3 mx-3">Prep time (min): 
+          <input type="number" class="form-control" value="<?php echo $recipe["prep_time"]; ?>" name="prep_time" />
+        </div> 
+        
+        <div class="row mb-3 mx-3">Link: 
+          <input type="text" class="form-control" value="<?php echo $recipe["link"]; ?>" name="link" />
+        </div>  
+        <div class="row mb-3 mx-3">
+          <input type="hidden" name="recipeID" value=<?php echo $recipeID ?>>
+          <input class="btn btn-primary" type="submit" name="updateRecipe" value="Update" />
+          <input class="btn btn-danger" type="submit" name="deleteRecipe" value="Delete" />
+        </div>
+      </form>  
+    </div>
+    <div id = "add_food_for_edit_recipe_form" class = "add_food_for_edit_recipe_form">
+      <h1>Add food</h1>
+        <form name="addFood" action="edit_recipe.php" method="post">
+          <div class="row mb-3 mx-3"> Name:
+            <input type="text" class="form-control" name="name" required />     
+          </div>  
+          <div class="row mb-3 mx-3">Quantity: 
+            <input type="number" class="form-control" name="quantity" required />    
+          </div>  
+          <div class="row mb-3 mx-3">Units: 
+            <input type="text" class="form-control" name="units" required />    
+          </div> 
+          <div class="row mb-3 mx-3">
+            <input type="hidden" name="recipeID" value=<?php echo $recipeID ?>>
+            <input class="btn btn-primary" type="submit" name="addFood" value="Add Food" />
+          </div>
+        </form> 
+    </div>
+  </div>
+  <div class = "container_for_food_in_recipe" id = "container_for_food_in_recipe">
+    <table class="w3-table w3-bordered w3-card-4 center table_for_food_in_recipe"  id = "table_for_food_in_recipe"style="width:70%"> 
       <thead>
       <tr style="background-color:#B0B0B0">
         <th width="20%"> Name    
@@ -106,7 +114,6 @@ $foods = getFoodsRecipeUses($recipeID);
       </tr>
     <?php endforeach; ?>
     </table>
-  </div> 
-  </div> 
+  </div>
 </body>
 </html>
