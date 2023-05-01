@@ -21,7 +21,7 @@ session_start();
                 ";
             ?>
         </div>
-        <div class="dropdown">
+        <div class="dropdown" style = "padding-right: 10px">
             <button class="btn btn-primary dropdown-toggle" type="button" id="meals" data-bs-toggle="dropdown" aria-expanded="false">
                 Meals
             </button>
@@ -32,7 +32,7 @@ session_start();
                 <li><a class="dropdown-item" href="all-meals.php">All Meals</a></li>
             </ul>
         </div>
-        <div class="dropdown">
+        <div class="dropdown" style = "padding-right: 10px">
             <button class="btn btn-primary dropdown-toggle" type="button" id="recipes" data-bs-toggle="dropdown" aria-expanded="false">
                 Recipes
             </button>
