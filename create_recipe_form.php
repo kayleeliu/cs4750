@@ -26,8 +26,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     }
   }
   else if (!empty($_POST['addBtn']) && ($_POST['addBtn'] == "Add Food")){
-    $food_entered = getFoodId($_POST['entered-food-name']);
     addFoodCaloriesTempGroup($_POST['entered-food-name'], $_POST['cooked-status'], $_POST['calories'], $_POST['ideal_storage_temp'], $_POST['food_group']);
+    $foodID = getFoodId($_POST['entered-food-name']);
+    createRecipe($_POST['prep_time'], $foodID, $_SESSION["userID"], $_POST['link']);
   }
 }
 ?>
