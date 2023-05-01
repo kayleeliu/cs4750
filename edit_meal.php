@@ -33,7 +33,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
       echo "<script>alert('Food not made yet! Functionality coming soon.')</script>";
     }
   } else if($_POST["deleteFood"]) {
-    deleteFoodFromMeal($_POST["foodID"]);
+    deleteFoodFromMeal($_POST["foodID"], $mealID);
   }
 }
 

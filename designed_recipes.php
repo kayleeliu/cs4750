@@ -9,7 +9,7 @@ session_start();
 if ($_SESSION["userID"] == 0){
   header("Location: login_form.php");
 }
-$recipes = getRecipeFoods($_SESSION["userID"]);
+$recipes = getRecipesByUser($_SESSION["userID"]);
 ?>
 
 <!DOCTYPE html>

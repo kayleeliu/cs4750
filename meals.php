@@ -93,12 +93,12 @@ function addFoodToMeal($foodID, $mealID, $quantity){
 }
 
 
-function deleteFoodFromMeal($foodID) {
+function deleteFoodFromMeal($foodID, $mealID) {
     echo $foodID;
     global $db;
     $db
-        ->prepare("DELETE FROM is_part_of WHERE foodID=?")
-        ->execute([$foodID]);
+        ->prepare("DELETE FROM is_part_of WHERE foodID=? AND mealID=?")
+        ->execute([$foodID, $mealID]);
 }
 
 

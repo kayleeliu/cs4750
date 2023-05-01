@@ -24,7 +24,7 @@ function createRecipe($prep_time, $foodID, $userID, $link){
     $statement->closeCursor();
 }
 
-function getRecipeFoods($userID) {
+function getRecipesByUser($userID) {
     global $db;
     $statement = $db->prepare("SELECT * FROM Recipe WHERE userID=:userID");
     $statement->bindValue(':userID', $userID);
@@ -63,4 +63,33 @@ function deleteRecipe($id) {
         ->prepare("DELETE FROM Recipe WHERE id=?")
         ->execute([$id]);
 }
+
+function addFoodToRecipe($recipeID, $foodID, $quantity, $units) {
+    global $db;
+    $db
+        ->prepare("INSERT INTO is_made_from VALUES (?, ?, ?, ?)")
+        ->execute([$recipeID, $foodID, $quantity, $units]);
+}
+
+function getFoodRecipeMakes($recipeID) {
+    global $db;
+    $stmt = $db->prepare("SELECT foodMade FROM Recipe WHERE id=?");
+    $stmt->execute([$recipeID]);
+    return $stmt->fetch()["foodMade"];
+}
+
+function getFoodsRecipeUses($recipeID) {
+    global $db;
+    $stmt = $db->prepare("SELECT * FROM is_made_from JOIN Food on Food.id=is_made_from.foodID WHERE recipeID=?");
+    $stmt->execute([$recipeID]);
+    return $stmt->fetchAll();
+}
+
+function deleteIngredientFromRecipe($recipeID, $foodID) {
+    global $db;
+    $db
+        ->prepare("DELETE FROM is_made_from WHERE foodID=? AND recipeID=?")
+        ->execute([$foodID, $recipeID]);
+}
+
 ?>
