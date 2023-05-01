@@ -54,33 +54,56 @@ $foods = getFoodsOfMeal($mealID);
 <html lang="en">
 <head>
 <?php include("common-header.php"); ?>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>  
   <?php include("navbar.php"); ?> 
+  <div class = "outer-container-edit-meals" id = "outer-container-edit-meals">
+    <div class = "container-edit-meals" id = "container-edit-meals">
+      <h1>Edit Meal</h1>
+      <form name="editMeal" action="edit_meal.php" method="post">
+        <div class="row mb-3 mx-3"> Name of meal:
+          <input type="text" class="form-control" name="name" value="<?php echo $meal["name"]; ?>" required />     
+        </div>  
+        <div class="row mb-3 mx-3">Number of servings: 
+          <input type="number" class="form-control" value="<?php echo $meal["num_of_servings"]; ?>" name="num_of_servings"/>    
+        </div>  
+        <div class="row mb-3 mx-3">Prep time (min): 
+          <input type="number" class="form-control" value="<?php echo $meal["prep_time"]; ?>" name="prep_time" />
+        </div>  
+        <div class="row mb-3 mx-3">Calorie count: 
+          <input type="number" class="form-control" value="<?php echo $meal["calorie_count"]; ?>" name="calorie_count" />
+        </div>  
+        <div class="row mb-3 mx-3">Time of day: 
+          <input type="text" class="form-control" value="<?php echo $meal["time_of_day"]; ?>" name="time_of_day" />
+        </div>  
+        <div class="row mb-3 mx-3">
+          <input type="hidden" name="mealID" value=<?php echo $mealID ?>>
+          <input class="btn btn-primary" type="submit" name="updateMeal" value="Update" style = "margin-bottom:10px;"/>
+          <input class="btn btn-danger" type="submit" name="deleteMeal" value="Delete" />
+        </div>
+      </form>  
+    </div>
+    
+    <div class = "container-edit-meals-add-food" id = "container-edit-meals-add-food">
+      <h1>Add food</h1>
+      <form name="addFood" action="edit_meal.php" method="post">
+        <div class="row mb-3 mx-3"> Name:
+          <input type="text" class="form-control" name="name" required />     
+        </div>  
+        <div class="row mb-3 mx-3">Quantity: 
+          <input type="number" class="form-control" name="quantity" required />    
+        </div>  
+        <div class="row mb-3 mx-3">
+          <input type="hidden" name="mealID" value=<?php echo $mealID ?>>
+          <input class="btn btn-primary" type="submit" name="addFood" value="Add Food" />
+        </div>
+      </form> 
+    </div>
+
+  </div>
   <div class="container"> 
-    <h1>Edit Meal</h1>
-    <form name="editMeal" action="edit_meal.php" method="post">
-      <div class="row mb-3 mx-3"> Name of meal:
-        <input type="text" class="form-control" name="name" value="<?php echo $meal["name"]; ?>" required />     
-      </div>  
-      <div class="row mb-3 mx-3">Number of servings: 
-        <input type="number" class="form-control" value="<?php echo $meal["num_of_servings"]; ?>" name="num_of_servings"/>    
-      </div>  
-      <div class="row mb-3 mx-3">Prep time (min): 
-        <input type="number" class="form-control" value="<?php echo $meal["prep_time"]; ?>" name="prep_time" />
-      </div>  
-      <div class="row mb-3 mx-3">Calorie count: 
-        <input type="number" class="form-control" value="<?php echo $meal["calorie_count"]; ?>" name="calorie_count" />
-      </div>  
-      <div class="row mb-3 mx-3">Time of day: 
-        <input type="text" class="form-control" value="<?php echo $meal["time_of_day"]; ?>" name="time_of_day" />
-      </div>  
-      <div class="row mb-3 mx-3">
-        <input type="hidden" name="mealID" value=<?php echo $mealID ?>>
-        <input class="btn btn-primary" type="submit" name="updateMeal" value="Update" />
-        <input class="btn btn-danger" type="submit" name="deleteMeal" value="Delete" />
-      </div>
-    </form>  
+    
 
     <div class="modal" id="addFoodModal" tabindex="-1" role="dialog" aria-labelledby="addFoodModalLabel" aria-hidden="true" display = "none;">
     <div class="modal-dialog" role="document">
@@ -98,22 +121,9 @@ $foods = getFoodsOfMeal($mealID);
         </form>
       </div>
     </div>
-    </div>
+  </div>
 
-    <h1>Add food</h1>
-    <form name="addFood" action="edit_meal.php" method="post">
-      <div class="row mb-3 mx-3"> Name:
-        <input type="text" class="form-control" name="name" required />     
-      </div>  
-      <div class="row mb-3 mx-3">Quantity: 
-        <input type="number" class="form-control" name="quantity" required />    
-      </div>  
-      <div class="row mb-3 mx-3">
-        <input type="hidden" name="mealID" value=<?php echo $mealID ?>>
-        <input class="btn btn-primary" type="submit" name="addFood" value="Add Food" />
-      </div>
-    </form> 
-  </div>  
+     
   <div class="row justify-content-center">  
     <table class="w3-table w3-bordered w3-card-4 center" style="width:70%">
       <thead>

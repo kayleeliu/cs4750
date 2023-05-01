@@ -63,7 +63,7 @@ $foods = getFoodsRecipeUses($recipeID);
         </div>  
         <div class="row mb-3 mx-3">
           <input type="hidden" name="recipeID" value=<?php echo $recipeID ?>>
-          <input class="btn btn-primary" type="submit" name="updateRecipe" value="Update" />
+          <input class="btn btn-primary" type="submit" name="updateRecipe" value="Update" style = "margin-bottom:10px;" />
           <input class="btn btn-danger" type="submit" name="deleteRecipe" value="Delete" />
         </div>
       </form>  
