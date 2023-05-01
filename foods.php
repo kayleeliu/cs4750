@@ -173,10 +173,10 @@ function updateUserFood($userID, $foodID, $location, $buy_date, $exp_date, $quan
     $statement = $db->prepare($query);
     $statement->bindValue(':userID', $userID);
     $statement->bindValue(':foodID', $foodID);
-    $statement->bindValue(':location', $location);
-    $statement->bindValue(':buy_date', $buy_date);
-    $statement->bindValue(':exp_date', $exp_date);
-    $statement->bindValue(':quan', $quantity);
+    $statement->bindValue(':location', $location ? $location : NULL);
+    $statement->bindValue(':buy_date', $buy_date ? $buy_date : NULL);
+    $statement->bindValue(':exp_date', $exp_date ? $buy_date : NULL);
+    $statement->bindValue(':quan', $quantity ? $quantity : 0);
     $statement->execute();
     $statement->closeCursor();
 }
@@ -187,10 +187,10 @@ function addFoodToInventory($userID, $foodID, $location, $buy_date, $exp_date, $
     $statement = $db->prepare($query);
     $statement->bindValue(':userID', $userID);
     $statement->bindValue(':foodID', $foodID);
-    $statement->bindValue(':location', $location);
-    $statement->bindValue(':buy_date', $buy_date);
-    $statement->bindValue(':exp_date', $exp_date);
-    $statement->bindValue(':quantity', $quantity);
+    $statement->bindValue(':location', $location ? $location : NULL);
+    $statement->bindValue(':buy_date', $buy_date ? $buy_date : NULL);
+    $statement->bindValue(':exp_date', $exp_date ? $buy_date : NULL);
+    $statement->bindValue(':quantity', $quantity ? $quantity : NULL);
     return $statement->execute();
     $statement->closeCursor();
 }
@@ -201,10 +201,10 @@ function updateFood($userID, $foodID, $location, $quantity, $buy_date, $exp_date
     $statement = $db->prepare($query);
     $statement->bindValue(':userID', $userID);
     $statement->bindValue(':foodID', $foodID);
-    $statement->bindValue(':newLocation', $location);
-    $statement->bindValue(':newQuantity', $quantity);
-    $statement->bindValue(':newBuyDate', $buy_date);
-    $statement->bindValue(':newExpDate', $exp_date);
+    $statement->bindValue(':newLocation', $location ? $location : NULL);
+    $statement->bindValue(':newBuyDate', $buy_date ? $buy_date : NULL);
+    $statement->bindValue(':newExpDate', $exp_date ? $buy_date : NULL);
+    $statement->bindValue(':newQuantity', $quantity ? $quantity : NULL);
     $statement->execute();
     $statement->closeCursor();
 }
