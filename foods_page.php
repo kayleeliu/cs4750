@@ -38,10 +38,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     }
   }
   else if (!empty($_POST['foodActionBtn']) && ($_POST['foodActionBtn'] == "Enter New Food")){
-      // check if user is logged in
-      $foodID = getFoodId($_POST['entered-food-name']);
+      $foodID = getFoodId($_POST['name']);
       if ($foodID){
-        addFood($_POST['entered-food-name'], $_POST['cooked-status'], $_SESSION['userID'], $_POST['entered-food-location'], $_POST['entered-food-buy-date'], $_POST['entered-food-exp-date'], $_POST['entered-food-quantity']);
+        addFood($_POST['name'], $_POST['cooked-status'], $_SESSION['userID'], $_POST['entered-food-location'], $_POST['entered-food-buy-date'], $_POST['entered-food-exp-date'], $_POST['entered-food-quantity']);
       }
       else {
         $foodID = "";
@@ -62,8 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     updateFood($userID, $foodID, $updatedLocation, $updatedQuantity, $updatedBuyDate, $updatedExpDate);
   }
   else if (!empty($_POST['addBtn']) && ($_POST['addBtn'] == "Add Food")){
-    $food_entered = getFoodId($_POST['entered-food-name']);
-    addFoodCaloriesTempGroup($_POST['entered-food-name'], $_POST['cooked-status'], $_POST['calories'], $_POST['ideal_storage_temp'], $_POST['food_group']);
+    addFoodCaloriesTempGroup($_POST['name'], $_POST['cooked-status'], $_POST['calories'], $_POST['ideal_storage_temp'], $_POST['food_group']);
   }
 }
 ?>
@@ -260,6 +258,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         </button>
       </div>
       <form id="foodForm" action="foods_page.php" method="post" class="form-border">
+        <input type="hidden" name="quantity" value=<?php echo $_POST['name'] ?>>
         <?php include("new_food_modal_form.php"); ?>
       </form>
     </div>
@@ -272,8 +271,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
               <h1 class="text-center mb-4">Enter new food!</h1>
               <form id="foodForm" action="foods_page.php" method="post" class="form-border">
                   <div class="form-group">
-                      <label for="entered-food-name">Food Name:</label>
-                      <input type="text" id="entered-food-name" class="form-control" name="entered-food-name">
+                      <label for="name">Food Name:</label>
+                      <input type="text" id="name" class="form-control" name="name">
                   </div>
                   <div class="form-group">
                       <label for="entered-food-buy-date">Buy date:</label>

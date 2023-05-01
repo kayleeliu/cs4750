@@ -5,6 +5,7 @@ require('meals.php');
 require('foods.php');
 
 session_start();
+$foodID = "default";
 
 // if user is not logged in or doesn't own the mealm redirect
 if($_SESSION["userID"] == 0) {
@@ -27,13 +28,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     deleteMeal($mealID);
     header("Location: designed_meals.php");
   } else if($_POST["addFood"]) {
-    if(foodNameExists($_POST["name"])) {
-      addFoodToMeal(getFoodId($_POST["name"]), $_POST["mealID"], $_POST["quantity"]);
-    } else {
-      echo "<script>alert('Food not made yet! Functionality coming soon.')</script>";
-    }
+      $foodID = getFoodId($_POST['name']);
+      if ($foodID){
+        addFoodToMeal(getFoodId($_POST["name"]), $_POST["mealID"], $_POST["quantity"]);      }
+      else {
+        $foodID = "";
+      }
   } else if($_POST["deleteFood"]) {
     deleteFoodFromMeal($_POST["foodID"], $mealID);
+  }
+  else if (!empty($_POST['addBtn']) && ($_POST['addBtn'] == "Add Food")){
+    addFoodCaloriesTempGroup($_POST['entered-food-name'], $_POST['cooked-status'], $_POST['calories'], $_POST['ideal_storage_temp'], $_POST['food_group']);
+    addFoodToMeal(getFoodId($_POST["entered-food-name"]), $_POST["mealID"], $_POST["quantity"]);
   }
 }
 
@@ -75,6 +81,25 @@ $foods = getFoodsOfMeal($mealID);
         <input class="btn btn-danger" type="submit" name="deleteMeal" value="Delete" />
       </div>
     </form>  
+
+    <div class="modal" id="addFoodModal" tabindex="-1" role="dialog" aria-labelledby="addFoodModalLabel" aria-hidden="true" display = "none;">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addFoodModalLabel">Add Food Before Adding to Meal!</h5>
+          <button type="button" class="close close_btn" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form id="foodForm" action="edit_meal.php" method="post" class="form-border">
+          <input type="hidden" name="mealID" value=<?php echo $mealID ?>>
+          <input type="hidden" name="quantity" value=<?php echo $_POST['quantity'] ?>>
+          <?php include("new_food_modal_form.php"); ?>
+        </form>
+      </div>
+    </div>
+    </div>
+
     <h1>Add food</h1>
     <form name="addFood" action="edit_meal.php" method="post">
       <div class="row mb-3 mx-3"> Name:
@@ -117,3 +142,19 @@ $foods = getFoodsOfMeal($mealID);
   </div> 
 </body>
 </html>
+
+<script>
+$(document).ready(function() {
+  $(".close_btn").click(function() {
+    $("#addFoodModal").hide();
+  });
+
+  console.log("<?php echo $foodID; ?>");
+
+  if ("<?php echo $foodID; ?>" === "") {
+    $("#addFoodModal").show();
+  } else {
+    $("#addFoodModal").hide();
+  }
+});
+</script>

@@ -1,7 +1,7 @@
  <div class="modal-body">
     <div class="form-group">
         <label for="entered-food-name">Food Name:</label>
-        <input type="text" id="entered-food-name" class="form-control" name="entered-food-name">
+        <input type="text" id="entered-food-name" class="form-control" name="entered-food-name" value="<?php echo $_POST['name'] ?>" readonly>
     </div>
     <div class="form-group">
         <label for="cooked-status">Is it cooked?</label>
