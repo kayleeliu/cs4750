@@ -167,7 +167,7 @@ $foods = getUserShoppingList($_SESSION["userID"]);
                 <input type="text" id="food_name" class="form-control" name="food_name">
             </div>
             <div class="form-group">
-                <label for="quantity">Quantity:</label>
+                <label for="quantity">Servings:</label>
                 <input type="number" id="quantity" class="form-control" name="quantity">
             </div>
             <div class="form-group">
