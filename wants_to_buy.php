@@ -57,3 +57,26 @@ function addFoodToDB($foodName, $cookedStatus){
     $statement->execute();
     $statement->closeCursor(); 
 }
+
+function checkFoodInShoppingList($userID, $foodID){
+    global $db;
+    $query = "select count(*) from wants_to_buy where userID=:userID and foodID=:foodID"; 
+    $statement = $db->prepare($query);
+    $statement->bindValue(':userID', $userID);
+    $statement->bindValue(':foodID', $foodID);
+    $statement->execute();
+    $results = $statement->fetch();
+    $statement->closeCursor(); 
+    return $results['count(*)'];
+}
+
+function updateUserShoppingList($userID, $foodID, $quantity){
+    global $db;
+    $query = "update wants_to_buy set quantity=:quan + quantity where userID=:userID and foodID=:foodID"; 
+    $statement = $db->prepare($query);
+    $statement->bindValue(':userID', $userID);
+    $statement->bindValue(':foodID', $foodID);
+    $statement->bindValue(':quan', $quantity);
+    $statement->execute();
+    $statement->closeCursor(); 
+}

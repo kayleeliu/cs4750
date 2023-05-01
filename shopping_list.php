@@ -14,8 +14,15 @@ if ($_SESSION["userID"] == 0){
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
   if(!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Add to Shopping List")){
     $food_adding_id = getFoodId($_POST['food_name']);
-    addFoodToShoppingList($_SESSION['userID'], $food_adding_id, $_POST['quantity']);
+    $check = checkFoodInShoppingList($_SESSION['userID'], $food_adding_id);
+    if(checkFoodInShoppingList($_SESSION['userID'], $food_adding_id) == 0){
+      addFoodToShoppingList($_SESSION['userID'], $food_adding_id, $_POST['quantity']);
+    }
+    else{
+      updateUserShoppingList($_SESSION['userID'], $food_adding_id, $_POST['quantity']);
+    }
   }
+  // from shopping list
   else if(!empty($_POST['foodActionBtn']) && ($_POST['foodActionBtn'] == "Add to Shopping List")){
     $food_exists = foodNameExists($_POST['food_name']);
     if($food_exists == 0){
