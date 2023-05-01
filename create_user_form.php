@@ -28,8 +28,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 </head>
 <body>  
 <?php include("navbar.php"); ?>
+<div class="jumbotron feature" style = "margin-bottom: 10px;">
+      <div class="container">
+          <h1>Create Account</h1>
+          <p>Join the Foodbase</p>
+      </div>
+  </div>
   <div class="container"> 
-    <h1>Create Account</h1>
     <form name="mainForm" action="create_user_form.php" method="post">
       <div class="row mb-3 mx-3"> Username:
         <input type="text" class="form-control" name="username" required />     
