@@ -136,18 +136,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             <p>Search, view, and enter new foods here!</p>
         </div>
 </div>
-<form name="mainForm" action="foods_page.php" method="post" >
-  <div class="row justify-content-center" style = "padding-top: 10px; padding-bottom: 10px;">
-    <div class="col-sm-6 col-md-4">
+<form name="mainForm" action="foods_page.php" method="post" class="mb-4">
+  <div class="row justify-content-center" style="padding-top:20px; padding-bottom:20px;">
+    <div class="col-12 col-sm-8 col-md-6">
       <div class="input-group">
-        <input type="text" class="form-control searchTerm" name="searchTerm" placeholder="Search for a food...">
-        <div class="input-group-append">
-          <button class="btn btn-primary" type="submit" name="actionBtn" title="Search">Search</button>
-        </div>
+        <input type="text" class="form-control border-0 shadow-lg" name="searchTerm" placeholder="Search for a food...">
+        <button class="btn btn-primary shadow-lg" type="submit" name="actionBtn" title="Search" value ="Search">Search</button>
       </div>
-  </div> 
-</div> 
-  <div class="row justify-content-center" style = "padding-top: 10px; width: 95%;">  
+    </div>
+  </div>
+</form>
+  <div class="row justify-content-center">  
     <table class="w3-table w3-bordered w3-card-4 center" style="width:70%">
       <thead>
       <tr style="background-color:#B0B0B0">
