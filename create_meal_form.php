@@ -25,11 +25,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 <html lang="en">
 <head>
 <?php include("common-header.php"); ?>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>  
 <?php include("navbar.php"); ?> 
+<div class="jumbotron feature" style = "margin-bottom: 10px;">
+      <div class="container">
+          <h1>Create Meals</h1>
+          <p>Combine different foods to eat all together</p>
+      </div>
+  </div>
   <div class="container"> 
-    <h1>Create Meal</h1>
     <form name="mainForm" action="create_meal_form.php" method="post">
       <div class="row mb-3 mx-3"> Name of meal:
         <input type="text" class="form-control" name="name" required />     

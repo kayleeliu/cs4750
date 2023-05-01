@@ -36,10 +36,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 <html lang="en">
 <head>
 <?php include("common-header.php"); ?>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>  
 <?php include("navbar.php"); ?>
-
+<div class="jumbotron feature" style = "margin-bottom: 10px;">
+      <div class="container">
+          <h1>Create Recipe</h1>
+          <p>Make new types of foods with other foods</p>
+      </div>
+  </div>
 <div class="modal" id="addFoodModal" tabindex="-1" role="dialog" aria-labelledby="addFoodModalLabel" aria-hidden="true" display = "none;">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -56,7 +62,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
   </div>
 </div>
   <div class="container"> 
-    <h1>Create Recipe</h1>
     <form name="mainForm" action="create_recipe_form.php" method="post">
       <div class="row mb-3 mx-3"> Food Made:
         <input type="text" class="form-control" name="name" id="name" placeholder="ex. shrimp scampi" required />     

@@ -18,6 +18,12 @@ $recipes = getAllRecipes();
 <body>  
 
 <?php include("navbar.php"); ?>
+<div class="jumbotron feature" style = "margin-bottom: 10px;">
+      <div class="container">
+          <h1>All Recipes</h1>
+          <p>View all recipes other people have made</p>
+      </div>
+  </div>
 <div class="row justify-content-center">  
     <table class="w3-table w3-bordered w3-card-4 center" style="width:70%">
       <thead>
