@@ -6,8 +6,6 @@ session_start();
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light ps-3 pe-3">
     <a class="navbar-brand" href="index.php">Food Tracker</a>
-    <a class="nav-item nav-link" href="foods_page.php">Foods</a>
-    <a class="nav-item nav-link" href="shopping_list.php">Shopping List</a>
     
         <div class="collapse navbar-collapse flex-row-reverse">
         
@@ -40,6 +38,16 @@ session_start();
                 <li><a class="dropdown-item" href="create_recipe_form.php">Create Recipe</a></li>
                 <li><a class="dropdown-item" href="designed_recipes.php">Designed Recipes</a></li>
                 <li><a class="dropdown-item" href="all-recipes.php">All Recipes</a></li>
+            </ul>
+        </div>
+        <div class="dropdown" style = "padding-right: 10px">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="foods" data-bs-toggle="dropdown" aria-expanded="false">
+                Foods
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="foods">
+                <li><a class="dropdown-item" href="foods_page.php">My Foods</a></li>
+                <li><a class="dropdown-item" href="shopping_list.php">Shopping List</a></li>
+                <li><a class="dropdown-item" href="all-foods.php">All Foods</a></li>
             </ul>
         </div>
     </div>

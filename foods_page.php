@@ -61,7 +61,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     updateFood($userID, $foodID, $updatedLocation, $updatedQuantity, $updatedBuyDate, $updatedExpDate);
   }
   else if (!empty($_POST['addBtn']) && ($_POST['addBtn'] == "Add Food")){
-    addFoodCaloriesTempGroup($_POST['name'], $_POST['cooked-status'], $_POST['calories'], $_POST['ideal_storage_temp'], $_POST['food_group']);
+    $foodID = addFoodCaloriesTempGroup($_POST['entered-food-name'], $_POST['cooked-status'], $_POST['calories'], $_POST['ideal_storage_temp'], $_POST['food_group']);
+    addFoodToInventory($_SESSION['userID'], $foodID, $_POST['entered-food-location'], $_POST['entered-food-buy-date'], $_POST['entered-food-exp-date'], $_POST['entered-food-quantity']);
+    $foods = getUserFood($_SESSION["userID"]);
   }
 }
 ?>
@@ -261,7 +263,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         </button>
       </div>
       <form id="foodForm" action="foods_page.php" method="post" class="form-border">
-        <input type="hidden" name="quantity" value=<?php echo $_POST['name'] ?>>
+        <input type="hidden" name="name" value=<?php echo $_POST['name'] ?>>
+        <input type="hidden" name="cooked-status" value=<?php echo $_POST['cooked-status'] ?>>
+        <input type="hidden" name="entered-food-location" value=<?php echo $_POST['entered-food-location'] ?>>
+        <input type="hidden" name="entered-food-buy-date" value=<?php echo $_POST['entered-food-buy-date'] ?>>
+        <input type="hidden" name="entered-food-exp-date" value=<?php echo $_POST['entered-food-exp-date'] ?>>
+        <input type="hidden" name="entered-food-quantity" value=<?php echo $_POST['entered-food-quantity'] ?>>
         <?php include("new_food_modal_form.php"); ?>
       </form>
     </div>

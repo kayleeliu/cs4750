@@ -180,6 +180,8 @@ function addFoodCaloriesTempGroup($name, $cookedStatus, $calories, $idealStorage
     $foodGroupStatement->bindValue(':foodGroup', $foodGroup);
     $foodGroupStatement->execute();
     $foodGroupStatement->closeCursor();
+
+    return $lastFoodID;
 }
 
 function deleteFood($id){
@@ -227,7 +229,7 @@ function addFoodToInventory($userID, $foodID, $location, $buy_date, $exp_date, $
     $statement->bindValue(':buy_date', $buy_date);
     $statement->bindValue(':exp_date', $exp_date);
     $statement->bindValue(':quantity', $quantity);
-    $statement->execute();
+    return $statement->execute();
     $statement->closeCursor();
 }
 
