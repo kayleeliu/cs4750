@@ -133,6 +133,55 @@ function addFood($name, $cookedStatus, $userID, $foodLocation, $foodBuyDate, $fo
     $userHasFoodStatement->closeCursor();
 }
 
+function addFoodCaloriesTempGroup($name, $cookedStatus, $calories, $idealStorageTemp, $foodGroup){
+    global $db;
+    $lastFoodID = 0;
+    if(getFoodId($name)){ 
+        //the food exists in Food table already
+        $lastFoodID = getFoodId($name);
+    }else{
+        $query = "INSERT INTO Food (name, cooked) VALUES (:foodName, :cooked)";
+        $statement = $db->prepare($query);
+        $statement->bindValue(':foodName', $name);
+        if($cookedStatus == "cooked"){
+            $cookedStatusBool = true;
+        }else if($cookedStatus == "notCooked"){
+            $cookedStatusBool = false;
+        }else{
+            $cookedStatusBool = NULL;
+        }
+        $statement->bindValue(':cooked', $cookedStatusBool, PDO::PARAM_BOOL);
+        $statement->execute();
+        $statement->closeCursor();
+        $lastFoodID = $db->lastInsertId();
+    }
+
+    $foodCaloriesTempQuery = "INSERT INTO food_calories_temp (name, cooked, calories, ideal_storage_temp) VALUES (:name, :cookedStatus, :calories, :idealStorageTemp)";
+    $foodCaloriesTempStatement = $db->prepare($foodCaloriesTempQuery);
+    $foodCaloriesTempStatement->bindValue(':name', $name);
+    if($cookedStatus == "cooked"){
+        $cookedStatusBool = true;
+    }else if($cookedStatus == "notCooked"){
+        $cookedStatusBool = false;
+    }else{
+        $cookedStatusBool = NULL;
+    }
+    $foodCaloriesTempStatement->bindValue(':cookedStatus', $cookedStatusBool, PDO::PARAM_BOOL);
+
+
+    $foodCaloriesTempStatement->bindValue(':calories', $calories);
+    $foodCaloriesTempStatement->bindValue(':idealStorageTemp', $idealStorageTemp);
+    $foodCaloriesTempStatement->execute();
+    $foodCaloriesTempStatement->closeCursor();
+
+    $foodGroupQuery = "INSERT INTO food_group (name, food_group) VALUES (:name, :foodGroup)";
+    $foodGroupStatement = $db->prepare($foodGroupQuery);
+    $foodGroupStatement->bindValue(':name', $name);
+    $foodGroupStatement->bindValue(':foodGroup', $foodGroup);
+    $foodGroupStatement->execute();
+    $foodGroupStatement->closeCursor();
+}
+
 function deleteFood($id){
     global $db;
     $query = "DELETE FROM user_has_food WHERE foodID=:id"; 

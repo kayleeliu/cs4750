@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
   }
   else if (!empty($_POST['addBtn']) && ($_POST['addBtn'] == "Add Food")){
     $food_entered = getFoodId($_POST['entered-food-name']);
-    addFood($_POST['entered-food-name'], NULL, $_SESSION['userID'], $_POST['entered-food-location'], $_POST['entered-food-buy-date'], $_POST['entered-food-exp-date'], $_POST['entered-food-quantity']);
+    addFoodCaloriesTempGroup($_POST['entered-food-name'], $_POST['cooked-status'], $_POST['calories'], $_POST['ideal_storage_temp'], $_POST['food_group']);
   }
 }
 ?>
@@ -49,32 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         </button>
       </div>
       <form id="foodForm" action="create_recipe_form.php" method="post" class="form-border">
-        <div class="modal-body">
-            <div class="form-group">
-                <label for="entered-food-name">Food Name:</label>
-                <input type="text" id="entered-food-name" class="form-control" name="entered-food-name">
-            </div>
-            <div class="form-group">
-                <label for="entered-food-buy-date">Buy date:</label>
-                <input type="date" id="entered-food-buy-date" class="form-control" name="entered-food-buy-date">
-            </div>
-            <div class="form-group">
-                <label for="entered-food-exp-date">Expiration date:</label>
-                <input type="date" id="entered-food-exp-date" class="form-control" name="entered-food-exp-date">
-            </div>
-            <div class="form-group">
-                <label for="entered-food-quantity">Quantity:</label>
-                <input type="number" id="entered-food-quantity" class="form-control" name="entered-food-quantity">
-            </div>
-            <div class="form-group">
-              <label for="entered-food-location">Where are you putting it:</label>
-              <input type="text" id="entered-food-location" class="form-control" name="entered-food-location">
-            </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary close_btn">Close</button>
-          <input class="btn btn-primary" type="submit" name="addBtn" value="Add Food" title="Add Food" />
-        </div>
+        <?php include("new_food_modal_form.php"); ?>
       </form>
     </div>
   </div>
