@@ -12,6 +12,7 @@ if ($_SESSION["userID"] == 0){
 }
 
 $foods = getUserFood($_SESSION["userID"]);
+$foodID = "default";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
   if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Apply Filter")){
@@ -37,7 +38,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     }
   }
   else if (!empty($_POST['foodActionBtn']) && ($_POST['foodActionBtn'] == "Enter New Food")){
-      addFood($_POST['entered-food-name'], $_POST['cooked-status'], $_SESSION['userID'], $_POST['entered-food-location'], $_POST['entered-food-buy-date'], $_POST['entered-food-exp-date'], $_POST['entered-food-quantity']);
+      // check if user is logged in
+      $foodID = getFoodId($_POST['entered-food-name']);
+      if ($foodID){
+        addFood($_POST['entered-food-name'], $_POST['cooked-status'], $_SESSION['userID'], $_POST['entered-food-location'], $_POST['entered-food-buy-date'], $_POST['entered-food-exp-date'], $_POST['entered-food-quantity']);
+      }
+      else {
+        $foodID = "";
+      }
   }
   else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Delete")){
     $foodID = getFoodId($_POST['food_to_delete']);
@@ -52,6 +60,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $updatedBuyDate = $_POST['updatedBuyDate'];
     $updatedQuantity = $_POST['updatedQuantity'];
     updateFood($userID, $foodID, $updatedLocation, $updatedQuantity, $updatedBuyDate, $updatedExpDate);
+  }
+  else if (!empty($_POST['addBtn']) && ($_POST['addBtn'] == "Add Food")){
+    $food_entered = getFoodId($_POST['entered-food-name']);
+    addFoodCaloriesTempGroup($_POST['entered-food-name'], $_POST['cooked-status'], $_POST['calories'], $_POST['ideal_storage_temp'], $_POST['food_group']);
   }
 }
 ?>
@@ -238,51 +250,81 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 </div>
 <br>
 
-  <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <h1 class="text-center mb-4">Enter new food!</h1>
-                <form id="foodForm" action="foods_page.php" method="post" class="form-border">
-                    <div class="form-group">
-                        <label for="entered-food-name">Food Name:</label>
-                        <input type="text" id="entered-food-name" class="form-control" name="entered-food-name">
-                    </div>
-                    <div class="form-group">
-                        <label for="entered-food-buy-date">Buy date:</label>
-                        <input type="date" id="entered-food-buy-date" class="form-control" name="entered-food-buy-date">
-                    </div>
-                    <div class="form-group">
-                        <label for="entered-food-exp-date">Expiration date:</label>
-                        <input type="date" id="entered-food-exp-date" class="form-control" name="entered-food-exp-date">
-                    </div>
-                    <div class="form-group">
-                        <label for="entered-food-quantity">Quantity:</label>
-                        <input type="number" id="entered-food-quantity" class="form-control" name="entered-food-quantity">
-                    </div>
-                    <div class="form-group">
-                        <label for="entered-food-location">Where are you putting it:</label>
-                        <input type="text" id="entered-food-location" class="form-control" name="entered-food-location">
-                    </div>
-                    <div class="form-group">
-                        <label for="cooked">Is it cooked?</label>
-                        <select id="cooked-status" name="cooked-status" class="form-control cooked-status">
-                            <option value="cooked">Cooked</option>
-                            <option value="notCooked">Not Cooked</option>
-                            <option value="NULL">N/A</option>
-                        </select>
-                    </div>
-                    <div class="form-group text-center">
-                        <input class="btn btn-primary" type="submit" name="foodActionBtn" value="Enter New Food" title="Enter New Food" />
-                    </div>
-                </form>
-            </div>
-        </div>
+<div class="modal" id="addFoodModal" tabindex="-1" role="dialog" aria-labelledby="addFoodModalLabel" aria-hidden="true" display = "none;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addFoodModalLabel">Add Food Before Adding to Your Inventory!</h5>
+        <button type="button" class="close close_btn" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="foodForm" action="foods_page.php" method="post" class="form-border">
+        <?php include("new_food_modal_form.php"); ?>
+      </form>
     </div>
+  </div>
+</div>
+
+  <div class="container mt-5">
+      <div class="row justify-content-center">
+          <div class="col-md-6">
+              <h1 class="text-center mb-4">Enter new food!</h1>
+              <form id="foodForm" action="foods_page.php" method="post" class="form-border">
+                  <div class="form-group">
+                      <label for="entered-food-name">Food Name:</label>
+                      <input type="text" id="entered-food-name" class="form-control" name="entered-food-name">
+                  </div>
+                  <div class="form-group">
+                      <label for="entered-food-buy-date">Buy date:</label>
+                      <input type="date" id="entered-food-buy-date" class="form-control" name="entered-food-buy-date">
+                  </div>
+                  <div class="form-group">
+                      <label for="entered-food-exp-date">Expiration date:</label>
+                      <input type="date" id="entered-food-exp-date" class="form-control" name="entered-food-exp-date">
+                  </div>
+                  <div class="form-group">
+                      <label for="entered-food-quantity">Quantity:</label>
+                      <input type="number" id="entered-food-quantity" class="form-control" name="entered-food-quantity">
+                  </div>
+                  <div class="form-group">
+                      <label for="entered-food-location">Where are you putting it:</label>
+                      <input type="text" id="entered-food-location" class="form-control" name="entered-food-location">
+                  </div>
+                  <div class="form-group">
+                      <label for="cooked">Is it cooked?</label>
+                      <select id="cooked-status" name="cooked-status" class="form-control cooked-status">
+                          <option value="cooked">Cooked</option>
+                          <option value="notCooked">Not Cooked</option>
+                          <option value="NULL">N/A</option>
+                      </select>
+                  </div>
+                  <div class="form-group text-center">
+                      <input class="btn btn-primary" type="submit" name="foodActionBtn" value="Enter New Food" title="Enter New Food" />
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
 
 </body>
 
 </html>
 <script>
+  $(document).ready(function() {
+  $(".close_btn").click(function() {
+    $("#addFoodModal").hide();
+  });
+
+  console.log("<?php echo $foodID; ?>");
+
+  if ("<?php echo $foodID; ?>" === "") {
+    $("#addFoodModal").show();
+  } else {
+    $("#addFoodModal").hide();
+  }
+});
+
   function toggle_filter_menu(){
     $("#filter_menu").toggle();
   }

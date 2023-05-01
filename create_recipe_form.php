@@ -55,8 +55,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     </div>
   </div>
 </div>
-
-
   <div class="container"> 
     <h1>Create Recipe</h1>
     <form name="mainForm" action="create_recipe_form.php" method="post">
@@ -78,10 +76,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 </html>
 
 <script>
-var clicked = false;
-document.getElementById('actionBtn').addEventListener("click", function() {
-  clicked = true;
-});
 
 $(document).ready(function() {
   $(".close_btn").click(function() {
@@ -89,7 +83,6 @@ $(document).ready(function() {
   });
 
   console.log("<?php echo $foodID; ?>");
-  console.log(clicked);
 
   if ("<?php echo $foodID; ?>" === "") {
     $("#addFoodModal").show();
