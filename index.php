@@ -6,7 +6,7 @@
     <meta name="author" content="your name">
     <meta name="description" content="include some description about your page">  
       
-    <title>Food Tracker</title>
+    <title>Foodbase</title>
     <?php include("common-header.php"); ?>
     <link rel="icon" type="image/png" href="http://www.cs.virginia.edu/~up3f/cs4750/images/db-icon.png">
     <link rel="stylesheet" href="styles.css">
