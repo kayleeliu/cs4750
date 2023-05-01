@@ -209,5 +209,13 @@ function updateFood($userID, $foodID, $location, $quantity, $buy_date, $exp_date
     $statement->closeCursor();
 }
 
+function getAllFoods() {
+    global $db;
+    $stmt = $db->prepare("WITH t1 AS 
+    (SELECT Food.name, Food.cooked, food_calories_temp.calories, food_calories_temp.ideal_storage_temp FROM Food LEFT JOIN food_calories_temp ON Food.name=food_calories_temp.name AND Food.cooked=food_calories_temp.cooked), t2 AS (SELECT * FROM food_group)
+    SELECT t1.name, t1.cooked, t1.calories, t1.ideal_storage_temp, t2.food_group FROM t1 LEFT JOIN t2 ON t1.name=t2.name");
+    $stmt->execute();
+    return $stmt->fetchAll();
+}
 
 ?>

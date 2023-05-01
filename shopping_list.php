@@ -10,6 +10,8 @@ if ($_SESSION["userID"] == 0){
   header("Location: login_form.php");
 }
 
+echo $_POST['food_name'];
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
   if(!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Add to Shopping List")){
