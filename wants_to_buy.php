@@ -80,3 +80,22 @@ function updateUserShoppingList($userID, $foodID, $quantity){
     $statement->execute();
     $statement->closeCursor(); 
 }
+
+function addFoodToDBAndShoppingList($userID, $foodName, $cookedStatus, $quantity){
+    global $db;
+    $query = "call addFoodToDBAndShoppingList(:userID, :foodName, :cooked, :quantity)";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':userID', $userID);
+    $statement->bindValue(':foodName', $foodName);
+    if($cookedStatus == "cooked"){
+        $cookedStatusBool = true;
+    }else if($cookedStatus == "notCooked"){
+        $cookedStatusBool = false;
+    }else{
+        $cookedStatusBool = NULL;
+    }
+    $statement->bindValue(':cooked', $cookedStatusBool, PDO::PARAM_BOOL);
+    $statement->bindValue(':quantity', $quantity);
+    $statement->execute();
+    $statement->closeCursor(); 
+}

@@ -28,10 +28,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
   else if(!empty($_POST['foodActionBtn']) && ($_POST['foodActionBtn'] == "Add to Shopping List")){
     $food_exists = foodNameExists($_POST['food_name']);
     if($food_exists == 0){
-      addFoodToDB($_POST['food_name'], $_POST['cooked-status']);
+      addFoodToDBAndShoppingList($_SESSION['userID'], $_POST['food_name'], $_POST['cooked-status'], $_POST['quantity']);
     }
-    $food_adding_id = getFoodId($_POST['food_name']);
-    addFoodToShoppingList($_SESSION['userID'], $food_adding_id, $_POST['quantity']);
+    else{
+      $food_adding_id = getFoodId($_POST['food_name']);
+      addFoodToShoppingList($_SESSION['userID'], $food_adding_id, $_POST['quantity']);
+    }
   }
   else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Bought")){
     $food_bought_id= getFoodId($_POST['food_bought']);

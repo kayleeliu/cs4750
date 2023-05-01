@@ -54,6 +54,12 @@ $foods = getFoodsRecipeUses($recipeID);
 </head>
 <body>  
   <?php include("navbar.php"); ?> 
+  <div class="jumbotron feature" style = "margin-bottom: 10px;">
+      <div class="container">
+          <h1>Edit Recipe</h1>
+          <p>What foods are needed for your recipe</p>
+      </div>
+  </div>
   <div id = "outer_form_container" class = "outer_form_container">
     <div class="edit_recipe_form" id = "edit_recipe_form"> 
       <h1>Edit Recipe</h1>

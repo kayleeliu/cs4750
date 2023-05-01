@@ -12,7 +12,7 @@
         </select>
     </div>
     <div class="form-group">
-        <label for="calories">Calories:</label>
+        <label for="calories">Calories per Serving:</label>
         <input type="number" id="calories" class="form-control" name="calories">
     </div>
     <div class="form-group">

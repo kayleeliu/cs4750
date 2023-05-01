@@ -57,7 +57,13 @@ $foods = getFoodsOfMeal($mealID);
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>  
-  <?php include("navbar.php"); ?> 
+<?php include("navbar.php"); ?> 
+<div class="jumbotron feature" style = "margin-bottom: 10px;">
+      <div class="container">
+          <h1>Edit Meals</h1>
+          <p>Choose which foods you want in this meal</p>
+      </div>
+  </div>
   <div class = "outer-container-edit-meals" id = "outer-container-edit-meals">
     <div class = "container-edit-meals" id = "container-edit-meals">
       <h1>Edit Meal</h1>
