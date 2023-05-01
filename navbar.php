@@ -14,7 +14,7 @@ session_start();
                 echo $_SESSION["userID"] ?
                 "<button class=\"btn btn-outline-primary\" onclick=\"window.location.href='logout.php'\">Logout from ".getUsername($_SESSION["userID"])."</a>" :
                 "
-                    <button class=\"btn btn-outline-primary\" onclick=\"window.location.href='login_form.php'\">Login</a>
+                    <button class=\"btn btn-outline-primary\" onclick=\"window.location.href='login_form.php'\" style = \"margin-right:10px;\">Login</a>
                     <button class=\"btn btn-outline-primary\" onclick=\"window.location.href='create_user_form.php'\">Create Account</a> 
                 ";
             ?>
