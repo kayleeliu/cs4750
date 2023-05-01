@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
   else if (!empty($_POST['foodActionBtn']) && ($_POST['foodActionBtn'] == "Enter New Food")){
       $foodID = getFoodId($_POST['name']);
       if ($foodID){
-        addFood($_POST['name'], $_POST['cooked-status'], $_SESSION['userID'], $_POST['entered-food-location'], $_POST['entered-food-buy-date'], $_POST['entered-food-exp-date'], $_POST['entered-food-quantity']);
+        addFoodToInventory($_SESSION['userID'], $foodID, $_POST['entered-food-location'], $_POST['entered-food-buy-date'], $_POST['entered-food-exp-date'], $_POST['entered-food-quantity']);
       }
       else {
         $foodID = "";
@@ -197,15 +197,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                     </div>
                     <div class="form-group" style = "margin-top: 10px;">
                       <label for="quantity">Quantity:</label>
-                      <input type="text" class="form-control" id="updatedQuantity" name="updatedQuantity" required>
+                      <input type="text" class="form-control" id="updatedQuantity" name="updatedQuantity">
                     </div>
                     <div class="form-group"  style = "margin-top: 10px;">
                       <label for="updateBuyDate">Buy Date:</label>
-                      <input type="date" class="form-control" id="updatedBuyDate" name="updatedBuyDate" required>
+                      <input type="date" class="form-control" id="updatedBuyDate" name="updatedBuyDate">
                     </div>
                     <div class="form-group" style = "margin-top: 10px;">
                       <label for="updateExpDate">Expiration Date:</label>
-                      <input type="date" class="form-control" id="updatedExpDate" value="<?php echo $item["exp_date"]; ?>" name="updatedExpDate" required>
+                      <input type="date" class="form-control" id="updatedExpDate" value="<?php echo $item["exp_date"]; ?>" name="updatedExpDate">
                     </div>
                     <div class="modal-footer">
                       <button class="btn btn-primary float-right" type="submit" name="updateFoodBtn" value="updateFood" title="updateFoodBtn" style = "margin-top:10px">Update Food</button>
@@ -297,7 +297,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                   </div>
                   <div class="form-group">
                       <label for="entered-food-location">Where are you putting it:</label>
-                      <input type="text" id="entered-food-location" class="form-control" name="entered-food-location">
+                      <input type="text" id="entered-food-location" class="form-control" name="entered-food-location" required>
                   </div>
                   <div class="form-group">
                       <label for="cooked">Is it cooked?</label>
