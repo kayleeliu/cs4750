@@ -38,9 +38,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 <?php
 include("navbar.php")
 ?> 
-
+<div class="jumbotron feature" style = "margin-bottom: 10px;">
+      <div class="container">
+          <h1>Login</h1>
+      </div>
+  </div>
   <div class="container"> 
-    <h1>Log In</h1>
     <form name="mainForm" action="login_form.php" method="post">
       <div class="row mb-3 mx-3"> Username:
         <input type="text" class="form-control" name="username" required />     
