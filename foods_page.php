@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 <?php include("navbar.php"); ?>
 <div class="container">
   <button class="btn" onclick="toggle_filter_menu()" style="position:absolute; right: 1vw;">
-    <img id=filter_icon src="filter_icon.png"/>
+    <img id=filter_icon src="filter_icon.png" style = "margin-top:270px;" title ="filter foods"/>
   </button>
 </div>
 <div id="filter_menu" style="display: none;">
