@@ -8,14 +8,10 @@ session_start();
     <a class="navbar-brand" href="index.php">Food Tracker</a>
     <a class="nav-item nav-link" href="foods_page.php">Foods</a>
     <a class="nav-item nav-link" href="shopping_list.php">Shopping List</a>
-    <a class="nav-item nav-link" href="my-meals.php">My Meals</a>
-    <div class="collapse navbar-collapse flex-row-reverse">
+    
+        <div class="collapse navbar-collapse flex-row-reverse">
+        
         <div class="flex-row-reverse justify-content-between">
-            <button class="btn btn-outline-primary" onclick="window.location.href='create_meal_form.php'">Create Meal</a> 
-            <button class="btn btn-outline-primary" onclick="window.location.href='designed_meals.php'">Meal Designer</a> 
-            <button class="btn btn-outline-primary" onclick="window.location.href='all-meals.php'">All Meals</a> 
-            <button class="btn btn-outline-primary" onclick="window.location.href='create_recipe_form.php'">Create Recipe</a> 
-            <button class="btn btn-outline-primary" onclick="window.location.href='designed_recipes.php'">Designed Recipes</a> 
             <?php
                 echo $_SESSION["userID"] ?
                 "<button class=\"btn btn-outline-primary\" onclick=\"window.location.href='logout.php'\">Logout from ".getUsername($_SESSION["userID"])."</a>" :
@@ -24,6 +20,27 @@ session_start();
                     <button class=\"btn btn-outline-primary\" onclick=\"window.location.href='create_user_form.php'\">Create Account</a> 
                 ";
             ?>
+        </div>
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="meals" data-bs-toggle="dropdown" aria-expanded="false">
+                Meals
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="meals">
+                <li><a class="dropdown-item" href="my-meals.php">My Meals</a></li>
+                <li><a class="dropdown-item" href="create_meal_form.php">Create Meal</a></li>
+                <li><a class="dropdown-item" href="designed_meals.php">Designed Meals</a></li>
+                <li><a class="dropdown-item" href="all-meals.php">All Meals</a></li>
+            </ul>
+        </div>
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="recipes" data-bs-toggle="dropdown" aria-expanded="false">
+                Recipes
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="meals">
+                <li><a class="dropdown-item" href="create_recipe_form.php">Create Recipe</a></li>
+                <li><a class="dropdown-item" href="designed_recipes.php">Designed Recipes</a></li>
+                <li><a class="dropdown-item" href="all-recipes.php">All Recipes</a></li>
+            </ul>
         </div>
     </div>
 </nav>  
