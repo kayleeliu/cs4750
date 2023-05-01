@@ -17,6 +17,11 @@
   <?php 
     include("navbar.php");
   ?>
-  
+  <div class="jumbotron feature" style = "margin-bottom: 10px;">
+      <div class="container">
+          <h1>Foodbase</h1>
+          <h2>Manage all of the foods you have at home, create recipes, and plan meals!</h2>
+      </div>
+  </div>
   </body>
   </html>

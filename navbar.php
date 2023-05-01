@@ -5,7 +5,7 @@ session_start();
 ?>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light ps-3 pe-3">
-    <a class="navbar-brand" href="index.php">Food Tracker</a>
+    <a class="navbar-brand" href="index.php">Foodbase</a>
     
         <div class="collapse navbar-collapse flex-row-reverse">
         
