@@ -92,4 +92,11 @@ function deleteIngredientFromRecipe($recipeID, $foodID) {
         ->execute([$foodID, $recipeID]);
 }
 
+function getAllRecipes() {
+    global $db;
+    $stmt = $db->prepare("SELECT Recipe.id, prep_time, name, link, COUNT(foodID) AS num_ingredients FROM (Recipe JOIN Food ON Recipe.foodMade=Food.id) LEFT JOIN is_made_from ON Recipe.id=is_made_from.recipeID GROUP BY Recipe.id, prep_time, name, link");
+    $stmt->execute();
+    return $stmt->fetchAll();
+}
+
 ?>
