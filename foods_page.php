@@ -41,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
       $foodID = getFoodId($_POST['name']);
       if ($foodID){
         addFoodToInventory($_SESSION['userID'], $foodID, $_POST['entered-food-location'], $_POST['entered-food-buy-date'], $_POST['entered-food-exp-date'], $_POST['entered-food-quantity']);
+        $foods = getUserFood($_SESSION["userID"]);
       }
       else {
         $foodID = "";
@@ -297,7 +298,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                   </div>
                   <div class="form-group">
                       <label for="entered-food-location">Where are you putting it:</label>
-                      <input type="text" id="entered-food-location" class="form-control" name="entered-food-location" required>
+                      <input type="text" id="entered-food-location" class="form-control" name="entered-food-location">
                   </div>
                   <div class="form-group">
                       <label for="cooked">Is it cooked?</label>
