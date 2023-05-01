@@ -187,10 +187,10 @@ function addFoodToInventory($userID, $foodID, $location, $buy_date, $exp_date, $
     $statement = $db->prepare($query);
     $statement->bindValue(':userID', $userID);
     $statement->bindValue(':foodID', $foodID);
-    $statement->bindValue(':location', $location ? $location : NULL);
+    $statement->bindValue(':location', $location);
     $statement->bindValue(':buy_date', $buy_date ? $buy_date : NULL);
     $statement->bindValue(':exp_date', $exp_date ? $buy_date : NULL);
-    $statement->bindValue(':quantity', $quantity ? $quantity : NULL);
+    $statement->bindValue(':quantity', $quantity);
     return $statement->execute();
     $statement->closeCursor();
 }

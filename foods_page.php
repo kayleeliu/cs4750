@@ -194,11 +194,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                     <input type="hidden" id="updateFoodName" name="updateFoodName">
                     <div class="form-group" style = "margin-top: 10px;">
                       <label for="updateLocation">Location:</label>
-                      <input type="text" class="form-control" id="updatedLocation" name="updatedLocation" required>
+                      <input type="text" class="form-control" id="updatedLocation" name="updatedLocation">
                     </div>
                     <div class="form-group" style = "margin-top: 10px;">
                       <label for="quantity">Quantity:</label>
-                      <input type="text" class="form-control" id="updatedQuantity" name="updatedQuantity">
+                      <input type="text" class="form-control" id="updatedQuantity" name="updatedQuantity" required>
                     </div>
                     <div class="form-group"  style = "margin-top: 10px;">
                       <label for="updateBuyDate">Buy Date:</label>
@@ -233,7 +233,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                   <div class="modal-body">
                     <div class="form-group">
                       <label for="quantity">Quantity:</label>
-                      <input type="text" class="form-control" id="quantity" name="quantity">
+                      <input type="text" class="form-control" id="quantity" name="quantity" required>
                       <input type="hidden" id="addShoppingListFoodName" name="food_name">
                     </div>
                     <div class="modal-footer">
@@ -294,7 +294,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                   </div>
                   <div class="form-group">
                       <label for="entered-food-quantity">Quantity:</label>
-                      <input type="number" id="entered-food-quantity" class="form-control" name="entered-food-quantity">
+                      <input type="number" id="entered-food-quantity" class="form-control" name="entered-food-quantity" required>
                   </div>
                   <div class="form-group">
                       <label for="entered-food-location">Where are you putting it:</label>
