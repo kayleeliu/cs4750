@@ -130,3 +130,16 @@ h1 {
   border-radius: 10px;
   width:49%;
 }
+
+.index_box{
+  text-align: center;
+  padding: 10% 0%;
+  border-radius: 5px;
+  vertical-align: middle;
+}
+
+.go_btn{
+  margin-top: 1vh;
+  width: 50%
+}
+

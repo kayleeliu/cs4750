@@ -88,4 +88,8 @@ $foods = getAllFoods();
         $("#addModalLabel").html("Add " + food_name + " to Shopping List");
         $("#addShoppingListModal").show();
     }
+
+    $(".closeAddModalBtn").click(function(){
+    $("#addShoppingListModal").hide();
+  })
 </script>
