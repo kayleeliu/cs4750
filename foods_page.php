@@ -155,7 +155,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
       <tr style="background-color:#B0B0B0">
         <th width="20%"> Name     
         <th width="15%"> Location
-        <th width="5%"> Quantity
+        <th width="5%"> Servings
         <th width="15%"> Buy Date
         <th width="15%"> Exp Date
         <th width="10%"> Delete
@@ -197,7 +197,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                       <input type="text" class="form-control" id="updatedLocation" name="updatedLocation">
                     </div>
                     <div class="form-group" style = "margin-top: 10px;">
-                      <label for="quantity">Quantity:</label>
+                      <label for="quantity">Servings:</label>
                       <input type="text" class="form-control" id="updatedQuantity" name="updatedQuantity" required>
                     </div>
                     <div class="form-group"  style = "margin-top: 10px;">
@@ -232,7 +232,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 <form action="shopping_list.php" method="POST"> 
                   <div class="modal-body">
                     <div class="form-group">
-                      <label for="quantity">Quantity:</label>
+                      <label for="quantity">Servings:</label>
                       <input type="text" class="form-control" id="quantity" name="quantity" required>
                       <input type="hidden" id="addShoppingListFoodName" name="food_name">
                     </div>
@@ -293,7 +293,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                       <input type="date" id="entered-food-exp-date" class="form-control" name="entered-food-exp-date">
                   </div>
                   <div class="form-group">
-                      <label for="entered-food-quantity">Quantity:</label>
+                      <label for="entered-food-quantity">Servings:</label>
                       <input type="number" id="entered-food-quantity" class="form-control" name="entered-food-quantity" required>
                   </div>
                   <div class="form-group">

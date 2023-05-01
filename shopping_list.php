@@ -67,6 +67,12 @@ $foods = getUserShoppingList($_SESSION["userID"]);
 </head>
 <body> 
 <?php include("navbar.php"); ?>
+<div class="jumbotron feature" style = "margin-bottom: 10px;">
+      <div class="container">
+          <h1>Shopping List</h1>
+          <p>View all foods you want to buy</p>
+      </div>
+  </div>
 <div class="modal" id="boughtFoodModal" tabindex="-1" role="dialog" aria-labelledby="boughtFoodModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -91,7 +97,7 @@ $foods = getUserShoppingList($_SESSION["userID"]);
                 <input type="date" id="entered-food-exp-date" class="form-control" name="entered-food-exp-date">
             </div>
             <div class="form-group">
-                <label for="entered-food-quantity">Quantity:</label>
+                <label for="entered-food-quantity">Servings:</label>
                 <input type="number" id="entered-food-quantity" class="form-control" name="entered-food-quantity">
             </div>
             <div class="form-group">
@@ -113,7 +119,7 @@ $foods = getUserShoppingList($_SESSION["userID"]);
       <thead>
       <tr style="background-color:#B0B0B0">
         <th width="50%"> Name     
-        <th width="30%"> Quantity
+        <th width="30%"> Servings
         <th width="10%"> Bought
         <th width="10%"> Delete
       </tr>

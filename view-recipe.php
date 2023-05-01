@@ -24,8 +24,12 @@ $foods = getFoodsRecipeUses($recipeID);
 </head>
 <body>  
   <?php include("navbar.php"); ?> 
+  <div class="jumbotron feature" style = "margin-bottom: 10px;">
+      <div class="container">
+          <h1>Details of <?= getFoodName($recipe['foodMade']) ?></h1>
+      </div>
+  </div>
   <div class="container"> 
-    <h1><?= getFoodName($recipe['foodMade']) ?></h1>
     Prep time: <?php echo $recipe['prep_time'] ? $recipe['prep_time'] . " min." : "" ?> <br>
     Link: <a href="<?php echo $recipe['link'] ?>"> <?php echo $recipe['link'] ?> </a> <br> <br>
     <h3> Ingredients: </h3>

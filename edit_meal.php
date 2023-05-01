@@ -97,7 +97,7 @@ $foods = getFoodsOfMeal($mealID);
         <div class="row mb-3 mx-3"> Name:
           <input type="text" class="form-control" name="name" required />     
         </div>  
-        <div class="row mb-3 mx-3">Quantity: 
+        <div class="row mb-3 mx-3">Servings: 
           <input type="number" class="form-control" name="quantity" required />    
         </div>  
         <div class="row mb-3 mx-3">
@@ -135,7 +135,7 @@ $foods = getFoodsOfMeal($mealID);
       <thead>
       <tr style="background-color:#B0B0B0">
         <th width="20%"> Name    
-        <th width="20%"> Quantity
+        <th width="20%"> Servings
         <th width="20%"> Delete
       </tr>
       </thead>
