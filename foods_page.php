@@ -218,7 +218,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
        
         </td>
         <td> 
-          <button class="btn btn-success" id="add_shopping_list_btn" onclick="openAddShoppingListModal('<?php echo $item['name']; ?>', this)">Add</button> 
+          <button class="btn btn-success btn-sm" id="add_shopping_list_btn" onclick="openAddShoppingListModal('<?php echo $item['name']; ?>', this)">Add</button> 
           <div class="modal" id="addShoppingListModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
