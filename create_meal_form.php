@@ -14,7 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     if(empty($_SESSION["userID"])) {
         echo '<script>alert("You need to be logged in!")</script>';
     } else {
-        createMeal($_POST['name'], $_POST['num_of_servings'], $_POST['prep_time'], $_POST['calorie_count'], $_POST['time_of_day']);
+        $mealID = createMeal($_POST['name'], $_POST['num_of_servings'], $_POST['prep_time'], $_POST['calorie_count'], $_POST['time_of_day']);
+        header("Location: edit_meal.php?mealID=$mealID");
     }
   }
 }

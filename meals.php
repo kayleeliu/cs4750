@@ -15,20 +15,19 @@ function createMeal($name, $num_of_servings, $prep_time, $calorie_count, $time_o
     $statement1->bindValue(':calorie_count', $calorie_count ? $calorie_count : null);
     $statement1->bindValue(':time_of_day', $time_of_day);
     $statement1->bindValue(':name', $name);
-
+    $mealID = -1;
 
     if($statement1->execute()) {
-        echo "<script>alert('Meal creation successful!');</script>";
+        $mealID = $db->lastInsertId();
         $statement2->bindValue(':userID', $userID);
         $statement2->bindValue(":mealID", $db->lastInsertId());
         $statement2->execute();
-    } else {
-        echo "<script>alert('Meal creation failed!');</script>";
     }
-
 
     $statement1->closeCursor();
     $statement2->closeCursor();
+
+    return $mealID;
 }
 
 

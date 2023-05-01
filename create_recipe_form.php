@@ -17,7 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
         $foodID = getFoodId($_POST['name']);
         if ($foodID){
-          createRecipe($_POST['prep_time'], $foodID, $_SESSION["userID"], $_POST['link']);
+          $recipeID = createRecipe($_POST['prep_time'], $foodID, $_SESSION["userID"], $_POST['link']);
+          header("Location: edit_recipe.php?recipeID=$recipeID");
         }
         else {
           $foodID = "";
