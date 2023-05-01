@@ -32,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 <html lang="en">
 <head>
 <?php include("common-header.php"); ?>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>  
 <?php
