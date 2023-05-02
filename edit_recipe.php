@@ -6,7 +6,7 @@ require('foods.php');
 
 session_start();
 
-// if user is not logged in or doesn't own the mealm redirect
+// if user is not logged in or doesn't own the meal redirect
 if($_SESSION["userID"] == 0) {
   header("Location: login_form.php");
 }
@@ -35,8 +35,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     deleteIngredientFromRecipe($recipeID, $_POST["foodID"]);
   }
   else if (!empty($_POST['addBtn']) && ($_POST['addBtn'] == "Add Food")){
-    addFoodCaloriesTempGroup($_POST['entered-food-name'], $_POST['cooked-status'], $_POST['calories'], $_POST['ideal_storage_temp'], $_POST['food_group']);
-    addFoodToRecipe($recipeID, getFoodId($_POST["name"]), $_POST["quantity"], $_POST["units"]); 
+    $foodID = addFoodCaloriesTempGroup($_POST['entered-food-name'], $_POST['cooked-status'], $_POST['calories'], $_POST['ideal_storage_temp'], $_POST['food_group']);
+    addFoodToRecipe($recipeID, $foodID, $_POST["quantity"], $_POST["units"]); 
   }
 }
 
@@ -91,9 +91,10 @@ $foods = getFoodsRecipeUses($recipeID);
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form id="foodForm" action="edit_meal.php" method="post" class="form-border">
-          <input type="hidden" name="mealID" value=<?php echo $recipeID ?>>
+        <form id="foodForm" action="edit_recipe.php" method="post" class="form-border">
+          <input type="hidden" name="recipeID" value=<?php echo $recipeID ?>>
           <input type="hidden" name="quantity" value=<?php echo $_POST['quantity'] ?>>
+          <input type="hidden" name="units" value=<?php echo $_POST['units'] ?>>
           <?php include("new_food_modal_form.php"); ?>
         </form>
       </div>
@@ -106,7 +107,7 @@ $foods = getFoodsRecipeUses($recipeID);
           <div class="row mb-3 mx-3"> Name:
             <input type="text" class="form-control" name="name" required />     
           </div>  
-          <div class="row mb-3 mx-3">Servings: 
+          <div class="row mb-3 mx-3">Quantity: 
             <input type="number" class="form-control" name="quantity" required />    
           </div>  
           <div class="row mb-3 mx-3">Units: 
@@ -124,7 +125,7 @@ $foods = getFoodsRecipeUses($recipeID);
       <thead>
       <tr style="background-color:#B0B0B0">
         <th width="20%"> Name    
-        <th width="20%"> Servings
+        <th width="20%"> Quantity
         <th width="20%"> Units
         <th width="20%"> Delete
       </tr>
