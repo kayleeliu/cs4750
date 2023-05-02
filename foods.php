@@ -173,7 +173,7 @@ function updateUserFood($userID, $foodID, $location, $buy_date, $exp_date, $quan
     $statement = $db->prepare($query);
     $statement->bindValue(':userID', $userID);
     $statement->bindValue(':foodID', $foodID);
-    $statement->bindValue(':location', $location ? $location : NULL);
+    $statement->bindValue(':location', $location);
     $statement->bindValue(':buy_date', $buy_date ? $buy_date : NULL);
     $statement->bindValue(':exp_date', $exp_date ? $exp_date : NULL);
     $statement->bindValue(':quan', $quantity ? $quantity : 0);
@@ -187,7 +187,7 @@ function addFoodToInventory($userID, $foodID, $location, $buy_date, $exp_date, $
     $statement = $db->prepare($query);
     $statement->bindValue(':userID', $userID);
     $statement->bindValue(':foodID', $foodID);
-    $statement->bindValue(':location', $location ? $location : NULL);
+    $statement->bindValue(':location', $location);
     $statement->bindValue(':buy_date', $buy_date ? $buy_date : NULL);
     $statement->bindValue(':exp_date', $exp_date ? $exp_date : NULL);
     $statement->bindValue(':quantity', $quantity);
@@ -201,7 +201,7 @@ function updateFood($userID, $foodID, $location, $quantity, $buy_date, $exp_date
     $statement = $db->prepare($query);
     $statement->bindValue(':userID', $userID);
     $statement->bindValue(':foodID', $foodID);
-    $statement->bindValue(':newLocation', $location ? $location : NULL);
+    $statement->bindValue(':newLocation', $location);
     $statement->bindValue(':newBuyDate', $buy_date ? $buy_date : NULL);
     $statement->bindValue(':newExpDate', $exp_date ? $exp_date : NULL);
     $statement->bindValue(':newQuantity', $quantity ? $quantity : NULL);
