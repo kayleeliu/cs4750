@@ -4,6 +4,11 @@ require("recipes.php");
 require("foods.php");
 session_start();
 
+// if user is not logged in or doesn't own the meal redirect
+if($_SESSION["userID"] == 0) {
+  header("Location: login_form.php");
+}
+
 // $_SERVER is a standard PHP object
 $foodID = "default";
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
