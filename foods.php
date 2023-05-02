@@ -218,4 +218,36 @@ function getAllFoods() {
     return $stmt->fetchAll();
 }
 
+function addFoodTemp($name, $cookedStatus, $calories, $idealStorageTemp, $foodGroup){
+    global $db;
+    $lastFoodID = 0;
+    $lastFoodID = getFoodId($name);
+
+    $foodCaloriesTempQuery = "INSERT INTO food_calories_temp (name, cooked, calories, ideal_storage_temp) VALUES (:name, :cookedStatus, :calories, :idealStorageTemp)";
+    $foodCaloriesTempStatement = $db->prepare($foodCaloriesTempQuery);
+    $foodCaloriesTempStatement->bindValue(':name', $name);
+    if($cookedStatus == "cooked"){
+        $cookedStatusBool = true;
+    }else if($cookedStatus == "notCooked"){
+        $cookedStatusBool = false;
+    }else{
+        $cookedStatusBool = NULL;
+    }
+    $foodCaloriesTempStatement->bindValue(':cookedStatus', $cookedStatusBool, PDO::PARAM_BOOL);
+
+
+    $foodCaloriesTempStatement->bindValue(':calories', $calories);
+    $foodCaloriesTempStatement->bindValue(':idealStorageTemp', $idealStorageTemp);
+    $foodCaloriesTempStatement->execute();
+    $foodCaloriesTempStatement->closeCursor();
+
+    $foodGroupQuery = "INSERT INTO food_group (name, food_group) VALUES (:name, :foodGroup)";
+    $foodGroupStatement = $db->prepare($foodGroupQuery);
+    $foodGroupStatement->bindValue(':name', $name);
+    $foodGroupStatement->bindValue(':foodGroup', $foodGroup);
+    $foodGroupStatement->execute();
+    $foodGroupStatement->closeCursor();
+
+}
+
 ?>

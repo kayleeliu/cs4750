@@ -12,11 +12,11 @@ if ($_SESSION["userID"] == 0){
 
 echo $_POST['food_name'];
 
+$showFoodTempModal = 0;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
   if(!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Add to Shopping List")){
     $food_adding_id = getFoodId($_POST['food_name']);
-    $check = checkFoodInShoppingList($_SESSION['userID'], $food_adding_id);
     if(checkFoodInShoppingList($_SESSION['userID'], $food_adding_id) == 0){
       addFoodToShoppingList($_SESSION['userID'], $food_adding_id, $_POST['quantity']);
     }
@@ -29,11 +29,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $food_exists = foodNameExists($_POST['food_name']);
     if($food_exists == 0){
       addFoodToDBAndShoppingList($_SESSION['userID'], $_POST['food_name'], $_POST['cooked-status'], $_POST['quantity']);
+      $showFoodTempModal = 1;
     }
     else{
       $food_adding_id = getFoodId($_POST['food_name']);
-      addFoodToShoppingList($_SESSION['userID'], $food_adding_id, $_POST['quantity']);
+      if(checkFoodInShoppingList($_SESSION['userID'], $food_adding_id) == 0){
+        addFoodToShoppingList($_SESSION['userID'], $food_adding_id, $_POST['quantity']);
+      }
+      else{
+        updateUserShoppingList($_SESSION['userID'], $food_adding_id, $_POST['quantity']);
+      }
     }
+  }
+  else if(!empty($_POST['addFoodTemp']) && ($_POST['addFoodTemp'] == "Add Food")){
+    addFoodTemp($_POST['foodTemp-name'], $_POST['foodTemp-cooked-status'], $_POST['calories'], $_POST['ideal_storage_temp'],$_POST['food_group']);
   }
   else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Bought")){
     $food_bought_id= getFoodId($_POST['food_bought']);
@@ -187,12 +196,70 @@ $foods = getUserShoppingList($_SESSION["userID"]);
     </div>
   </div>
 </div>
-
+<div class="modal" id="foodTempModal" tabindex="-1" role="dialog" aria-labelledby="foodTempModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="foodTempModalLabel">Add more details</h5>
+        <button type="button" class="close close_foodTemp_modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="shopping_list.php" method="post" class="form-border">
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="foodTemp-name">Food Name:</label>
+          <input type="text" id="foodTemp-name" class="form-control" name="foodTemp-name" value="<?php echo $_POST['food_name'] ?>" readonly>
+      </div>
+      <div class="form-group">
+          <label for="foodTemp-cooked-status">Is it cooked?</label>
+          <select id="foodTemp-cooked-status" name="foodTemp-cooked-status" class="form-control cooked-status" value="<?php echo $_POST['cooked-status'] ?>" readonly>
+              <option value="cooked">Cooked</option>
+              <option value="notCooked">Not Cooked</option>
+              <option value="NULL">N/A</option>
+          </select>
+      </div>
+          <div class="form-group">
+              <label for="calories">Calories per Serving:</label>
+              <input type="number" id="calories" class="form-control" name="calories">
+          </div>
+          <div class="form-group">
+              <label for="ideal_storage_temp">Ideal Storage Temperature (F):</label>
+              <input type="number" id="ideal_storage_temp" class="form-control" name="ideal_storage_temp">
+          </div>
+          <div class="form-group">
+              <label for="food_group">Food Group:</label>
+              <select id="food_group" name="food_group" class="form-control food_group">
+                  <option value="fruits">Fruits</option>
+                  <option value="vegetable">Vegetables</option>
+                  <option value="protein">Protein</option>
+                  <option value="grains">Grains</option>
+                  <option value="dairy">Dairy</option>
+                  <option value="other">Other</option>
+              </select>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary close_foodTemp_modal">Close</button>
+              <input class="btn btn-primary" type="submit" name="addFoodTemp" value="Add Food" title="Add Food" />
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 </html>
 
 <script>
   
 $(document).ready(function() {
+  
+  console.log("<?php echo $showFoodTempModal; ?>");
+  if("<?php echo $showFoodTempModal; ?>" == 1){
+    $("#foodTempModal").show();
+  }
+  else{
+    $("#foodTempModal").hide();
+  }
   $(".close_bought_modal").click(function(){
     $("#boughtFoodModal").hide();
   })
