@@ -35,8 +35,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     deleteIngredientFromRecipe($recipeID, $_POST["foodID"]);
   }
   else if (!empty($_POST['addBtn']) && ($_POST['addBtn'] == "Add Food")){
-    addFoodCaloriesTempGroup($_POST['entered-food-name'], $_POST['cooked-status'], $_POST['calories'], $_POST['ideal_storage_temp'], $_POST['food_group']);
-    addFoodToRecipe($recipeID, getFoodId($_POST["name"]), $_POST["quantity"], $_POST["units"]); 
+    $foodID = addFoodCaloriesTempGroup($_POST['entered-food-name'], $_POST['cooked-status'], $_POST['calories'], $_POST['ideal_storage_temp'], $_POST['food_group']);
+    addFoodToRecipe($recipeID, $foodID, $_POST["quantity"], $_POST["units"]); 
   }
 }
 
@@ -91,9 +91,10 @@ $foods = getFoodsRecipeUses($recipeID);
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form id="foodForm" action="edit_meal.php" method="post" class="form-border">
-          <input type="hidden" name="mealID" value=<?php echo $recipeID ?>>
+        <form id="foodForm" action="edit_recipe.php" method="post" class="form-border">
+          <input type="hidden" name="recipeID" value=<?php echo $recipeID ?>>
           <input type="hidden" name="quantity" value=<?php echo $_POST['quantity'] ?>>
+          <input type="hidden" name="units" value=<?php echo $_POST['units'] ?>>
           <?php include("new_food_modal_form.php"); ?>
         </form>
       </div>

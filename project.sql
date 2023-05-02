@@ -130,6 +130,30 @@ END
 $$
 DELIMITER ;
 
+DELIMITER $$
+CREATE DEFINER=`ktl4rt`@`%` PROCEDURE `makeRecipe`(
+    IN prep_time INT, 
+    IN foodName VARCHAR(100), 
+    IN cooked BOOLEAN, 
+    IN userID INT, 
+    IN link VARCHAR(200)
+)
+BEGIN
+    INSERT INTO Food (name, cooked) VALUES (foodName, cooked);
+    SET @foodID := LAST_INSERT_ID();
+    INSERT INTO Recipe(prep_time, foodMade, userID, link) VALUES (prep_time,@foodID, userID, link);
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`ktl4rt`@`%` PROCEDURE `addFoodToDBAndShoppingList`(IN `uID` INT, IN `foodName` VARCHAR(200), IN `cooked_status` BOOLEAN, IN `quan` INT)
+BEGIN
+INSERT INTO Food (name, cooked) VALUES (foodName, cooked_status);
+	SET @fID := LAST_INSERT_ID();
+INSERT INTO wants_to_buy (userID, foodID, quantity) VALUES (uID,@fID,quan);
+END$$
+DELIMITER ;
+
 INSERT INTO `User` (`id`, `username`, `password`, `daily_calorie_count`, `meals_per_day`) VALUES
 (1, 'kaylee', '$5$databaseencrypti$iEJgCh2fUhHmJsi8/4ytQaaY1hh0WGgdtt6sDrQqWDA', 500, 4),
 (2, 'candace', '$5$databaseencrypti$34nppJEy9DsVoEbYaN4eqKENiHvpxFHn1bfw0U0kz71', 1322, 3),
