@@ -175,7 +175,7 @@ function updateUserFood($userID, $foodID, $location, $buy_date, $exp_date, $quan
     $statement->bindValue(':foodID', $foodID);
     $statement->bindValue(':location', $location ? $location : NULL);
     $statement->bindValue(':buy_date', $buy_date ? $buy_date : NULL);
-    $statement->bindValue(':exp_date', $exp_date ? $buy_date : NULL);
+    $statement->bindValue(':exp_date', $exp_date ? $exp_date : NULL);
     $statement->bindValue(':quan', $quantity ? $quantity : 0);
     $statement->execute();
     $statement->closeCursor();
@@ -189,7 +189,7 @@ function addFoodToInventory($userID, $foodID, $location, $buy_date, $exp_date, $
     $statement->bindValue(':foodID', $foodID);
     $statement->bindValue(':location', $location);
     $statement->bindValue(':buy_date', $buy_date ? $buy_date : NULL);
-    $statement->bindValue(':exp_date', $exp_date ? $buy_date : NULL);
+    $statement->bindValue(':exp_date', $exp_date ? $exp_date : NULL);
     $statement->bindValue(':quantity', $quantity);
     return $statement->execute();
     $statement->closeCursor();
@@ -203,7 +203,7 @@ function updateFood($userID, $foodID, $location, $quantity, $buy_date, $exp_date
     $statement->bindValue(':foodID', $foodID);
     $statement->bindValue(':newLocation', $location ? $location : NULL);
     $statement->bindValue(':newBuyDate', $buy_date ? $buy_date : NULL);
-    $statement->bindValue(':newExpDate', $exp_date ? $buy_date : NULL);
+    $statement->bindValue(':newExpDate', $exp_date ? $exp_date : NULL);
     $statement->bindValue(':newQuantity', $quantity ? $quantity : NULL);
     $statement->execute();
     $statement->closeCursor();

@@ -4,7 +4,7 @@
 $username = 'ktl4rt'; 
 $password = 'databasepassword';
 $host = 'mysql01.cs.virginia.edu';
-$dbname = 'ktl4rt_a';
+$dbname = 'ktl4rt_c';
 $dsn = "mysql:host=$host;dbname=$dbname";
 
 

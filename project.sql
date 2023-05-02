@@ -203,6 +203,11 @@ INSERT INTO Food (name, cooked) VALUES ("honey walnut shrimp", TRUE);
 INSERT INTO Food (name, cooked) VALUES ("honey", NULL);
 INSERT INTO Food (name, cooked) VALUES ("walnut", FALSE);
 INSERT INTO Food (name, cooked) VALUES ("parfait", NULL);
+INSERT INTO Food (name, cooked) VALUES ("spaghetti", NULL);
+INSERT INTO Food (name, cooked) VALUES ('pasta', 0);
+
+-- add garlic and pasta
+-- don't add meatballs
 
 INSERT INTO food_calories_temp VALUES ("Scrambled eggs", TRUE, 100, 70);
 INSERT INTO food_calories_temp VALUES ("french toast", TRUE, 200, 40);
@@ -258,11 +263,17 @@ INSERT INTO Recipe(prep_time, foodMade, userID, link) VALUES (15, 20, 1, "https:
 INSERT INTO Recipe(prep_time, foodMade, userID, link) VALUES (25, 23, 3, "https://www.allrecipes.com/recipe/93234/honey-walnut-shrimp/");
 INSERT INTO Recipe(prep_time, foodMade, userID, link) VALUES (3, 26, 2, "https://www.jaroflemons.com/apple-crumble-parfait/");
 
-INSERT INTO user_has_food VALUES (1, 1, 'fridge', NULL, NULL, 3);
-INSERT INTO user_has_food VALUES (1, 2, 'fridge', NULL, NULL, 8);
-INSERT INTO user_has_food VALUES (1, 18, 'fridge', '2023-04-01', '2024-05-01', 4);
-INSERT INTO user_has_food VALUES (2, 21, 'freezer', '2023-02-18', '2023-02-22', 2);
-INSERT INTO user_has_food VALUES (3, 24, 'cabinet', '2023-08-10', NULL, 1);
+INSERT INTO `user_has_food` (`userID`, `foodID`, `location`, `buy_date`, `exp_date`, `quantity`) VALUES
+(1, 1, 'fridge', NULL, NULL, 3),
+(1, 2, 'fridge', NULL, NULL, 8),
+(1, 5, 'pantry', '2023-04-30', '2023-04-30', 3),
+(1, 9, '', NULL, NULL, 12),
+(1, 18, 'fridge', '2023-04-01', '2024-05-01', 4),
+(1, 22, '', NULL, NULL, 10),
+(1, 24, '', NULL, NULL, 10),
+(1, 28, 'pantry', '2023-04-20', '2023-04-20', 10),
+(2, 21, 'freezer', '2023-02-18', '2023-02-22', 2),
+(3, 24, 'cabinet', '2023-08-10', NULL, 1);
 
 INSERT INTO user_has_meal VALUES (1, 1, True);
 INSERT INTO user_has_meal VALUES (2, 3, False);
