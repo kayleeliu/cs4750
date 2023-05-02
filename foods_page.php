@@ -60,6 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $updatedBuyDate = $_POST['updatedBuyDate'];
     $updatedQuantity = $_POST['updatedQuantity'];
     updateFood($userID, $foodID, $updatedLocation, $updatedQuantity, $updatedBuyDate, $updatedExpDate);
+    $foods = getUserFood($_SESSION["userID"]);
   }
   else if (!empty($_POST['addBtn']) && ($_POST['addBtn'] == "Add Food")){
     $foodID = addFoodCaloriesTempGroup($_POST['entered-food-name'], $_POST['cooked-status'], $_POST['calories'], $_POST['ideal_storage_temp'], $_POST['food_group']);
