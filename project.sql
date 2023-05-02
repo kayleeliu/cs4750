@@ -94,7 +94,7 @@ CREATE TABLE is_made_from (
 	recipeID INT NOT NULL,
 	foodID INT NOT NULL,
 	quantity INT NOT NULL,
-	units VARCHAR(5) NOT NULL,
+	units VARCHAR(15) NOT NULL,
 	PRIMARY KEY (recipeID, foodID),
 	FOREIGN KEY (recipeID) REFERENCES Recipe(id) ON DELETE CASCADE,
 	FOREIGN KEY (foodID) REFERENCES Food(id) ON DELETE CASCADE
@@ -205,6 +205,7 @@ INSERT INTO Food (name, cooked) VALUES ("walnut", FALSE);
 INSERT INTO Food (name, cooked) VALUES ("parfait", NULL);
 INSERT INTO Food (name, cooked) VALUES ("spaghetti", NULL);
 INSERT INTO Food (name, cooked) VALUES ('pasta', 0);
+INSERT INTO Food (name, cooked) VALUES ("Spaghetti and meatballs", TRUE);
 
 -- add garlic and pasta
 -- don't add meatballs
@@ -266,12 +267,12 @@ INSERT INTO Recipe(prep_time, foodMade, userID, link) VALUES (3, 26, 2, "https:/
 INSERT INTO `user_has_food` (`userID`, `foodID`, `location`, `buy_date`, `exp_date`, `quantity`) VALUES
 (1, 1, 'fridge', NULL, NULL, 3),
 (1, 2, 'fridge', NULL, NULL, 8),
-(1, 5, 'pantry', '2023-04-30', '2023-04-30', 3),
+(1, 5, 'pantry', '2023-04-30', '2023-05-30', 3),
 (1, 9, '', NULL, NULL, 12),
-(1, 18, 'fridge', '2023-04-01', '2024-05-01', 4),
+(1, 18, 'fridge', '2023-04-01', '2023-04-03', 4),
 (1, 22, '', NULL, NULL, 10),
 (1, 24, '', NULL, NULL, 10),
-(1, 28, 'pantry', '2023-04-20', '2023-04-20', 10),
+(1, 28, 'pantry', '2023-04-20', '2023-06-02', 10),
 (2, 21, 'freezer', '2023-02-18', '2023-02-22', 2),
 (3, 24, 'cabinet', '2023-08-10', NULL, 1);
 
@@ -295,6 +296,7 @@ INSERT INTO is_part_of VALUES (20, 3, 6);
 INSERT INTO is_part_of VALUES (23, 3, 7);
 
 INSERT INTO wants_to_buy VALUES (1, 18, 9);
+INSERT INTO wants_to_buy VALUES (1, 10, 5);
 INSERT INTO wants_to_buy VALUES (2, 5, 10);
 INSERT INTO wants_to_buy VALUES (8, 7, 1);
 INSERT INTO wants_to_buy VALUES (4, 18, 1);
